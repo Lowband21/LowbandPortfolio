@@ -8,3 +8,5 @@ Run the following for development:
 - `cd client; npm install; npm run autobuild` to automatically build and reload the Svelte frontend when it's changed.
 
 This example just queries the Flask server for a random number.
+
+SSH Test
