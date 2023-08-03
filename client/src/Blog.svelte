@@ -1,24 +1,11 @@
 <!-- Blog.svelte -->
 <script>
-  // Sample data for blog posts
-  const blogPosts = [
-    {
-      id: 1,
-      title: "Getting Started with Svelte",
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    },
-    {
-      id: 2,
-      title: "Understanding Reactive Declarations in Svelte",
-      content: "Svelte's reactivity system is amazing! Let's explore it.",
-    },
-    {
-      id: 3,
-      title: "Building a Simple To-Do App with Svelte",
-      content: "Learn how to build a to-do app using Svelte and local storage.",
-    },
-  ];
+  import { blogPosts } from './blog/index.js';
+  import { Link } from 'svelte-routing';
+
+  let posts = blogPosts.map((Component, id) => ({ id, Component }));
 </script>
+
 
 <style>
   /* Style for blog post list */
@@ -40,11 +27,12 @@
   }
 </style>
 
+
 <div class="blog-list">
-  {#each blogPosts as post (post.id)}
+  {#each posts as { id, Component } (id)}
     <div class="blog-post">
-      <h2 class="blog-title">{post.title}</h2>
-      <p>{post.content}</p>
+      <svelte:component this={Component} />
+      <Link to={"/post/" + id}>Read more...</Link>
     </div>
   {/each}
 </div>

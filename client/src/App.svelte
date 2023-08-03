@@ -4,6 +4,7 @@
   import Home from './Home.svelte';
   import Blog from './Blog.svelte';
   import Projects from './Projects.svelte';
+  import Post from './Post.svelte';
 </script>
 
 <style>
@@ -52,4 +53,5 @@
   <Route path="/" component={Home} />
   <Route path="/blog" component={Blog} />
   <Route path="/projects" component={Projects} />
+  <Route path="/post/:id" let:params={params} component={Post} />
 </Router>
