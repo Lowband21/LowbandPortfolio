@@ -123,7 +123,7 @@
   }
 </style>
 
-<div class="homepage" in:fly={{ x: 0, y: -200, delay: 500, duration: 500 }}>
+<div class="homepage" in:fly={{ x: 0, y: -200, delay: 500, duration: 50 }}>
   <!-- Welcome Section -->
   <div class="full-width-container welcome-container">
     <div class="section-content">
@@ -147,7 +147,7 @@
       <h3>University of Denver</h3>
       <p>
         <strong>Generative AI Research Assistant</strong> (Apr 2023 - Present, Hybrid)<br>
-        Project leader and researcher for professor Stephen Hutt working on quiz generation<br>
+        Project leader and researcher for professor Stephen Hutt working on <Link to={'/projects/13'}>quiz generation</Link><br>
         <strong>Teaching Assistant</strong> (Mar 2023 - Jun 2023, Remote)<br>
         Assisted and graded multiple graduate level data science classes.<br>
         <strong>Algorithms and Data Structures Tutor</strong> (Feb 2023 - Mar 2023, Hybrid)<br>
@@ -203,7 +203,7 @@
         {#each skills as skill (skill.id)}
           <div class="skill" animate:flip={{ duration: 500 }}>
             <!-- Link to individual skill page using Link component -->
-            <Link to={`/skills/${skill.name}`}>
+            <Link to={`/skills/${skill.name.replace(' ', '_')}`}>
               {skill.name}
             </Link>
           </div>

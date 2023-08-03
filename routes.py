@@ -1,16 +1,18 @@
 from flask import Blueprint, jsonify, send_from_directory
+from os.path import splitext
 from models import Project, Skill, Bio
 
 base_routes = Blueprint('base_routes', __name__)
 
-@base_routes.route("/")
-def base():
-    return send_from_directory('client/public', 'index.html')
-
-@base_routes.route("/<path:path>")
+@base_routes.route('/', defaults={'path': ''})
+@base_routes.route('/<path:path>')
+@base_routes.route('/blog')
 def home(path):
-    return send_from_directory('client/public', path)
-
+    # Check if path is a file by checking if it has an extension
+    if splitext(path)[1]:
+        return send_from_directory('client/public', path)
+    else:
+        return send_from_directory('client/public', 'index.html')
 
 api = Blueprint('api', __name__)
 

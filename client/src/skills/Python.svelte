@@ -1,4 +1,4 @@
-<!-- PostPythonExperience.svelte -->
+<!-- Python.svelte -->
 <script>
   export let post = {
     title: "My Journey with Python: From High School to Professional Development",

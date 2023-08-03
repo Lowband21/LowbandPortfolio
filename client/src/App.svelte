@@ -5,7 +5,10 @@
   import Blog from './Blog.svelte';
   import Projects from './Projects.svelte';
   import Post from './Post.svelte';
+  import Project from './Project.svelte'; // New line
   import Python from './skills/Python.svelte';
+  import Modal_Editing from "./skills/Modal_Editing.svelte";
+  import Markdown from "./skills/Markdown.svelte";
 </script>
 
 <style>
@@ -55,5 +58,10 @@
   <Route path="/blog" component={Blog} />
   <Route path="/projects" component={Projects} />
   <Route path="/post/:id" let:params={params} component={Post} />
+  <Route path="/project/:id" let:params>
+    <Project id="{params.id}"/>
+  </Route>
   <Route path="/skills/Python" component={Python} />
+  <Route path="/skills/Model_Editing" component={Modal_Editing} />
+  <Route path="/skills/Markdown" component={Markdown} />
 </Router>

@@ -2,6 +2,7 @@
 <script>
   import { onMount } from "svelte";
   import { flip } from 'svelte/animate';
+  import { Link } from 'svelte-routing';
 
   let projects = [];
 
@@ -69,11 +70,11 @@
 <div class="projects">
   {#each projects as project (project.id)}
     <div class="project" animate:flip={{ duration: 500 }}>
-      <!-- Link to individual project page using anchor tag -->
-      <a href="{getProjectURL(project.id)}">
+      <!-- Link to individual project page using Link component -->
+      <Link to="/project/{project.id}">
         <h3>{project.name}</h3>
         <p>{project.description}</p>
-      </a>
+      </Link>
     </div>
   {/each}
 </div>
