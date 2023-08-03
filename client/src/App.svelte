@@ -5,6 +5,7 @@
   import Blog from './Blog.svelte';
   import Projects from './Projects.svelte';
   import Post from './Post.svelte';
+  import Python from './skills/Python.svelte';
 </script>
 
 <style>
@@ -54,4 +55,5 @@
   <Route path="/blog" component={Blog} />
   <Route path="/projects" component={Projects} />
   <Route path="/post/:id" let:params={params} component={Post} />
+  <Route path="/skills/Python" component={Python} />
 </Router>

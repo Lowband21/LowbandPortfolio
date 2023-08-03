@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { fly } from 'svelte/transition';
   import { flip } from 'svelte/animate';
+  import { Link } from 'svelte-routing';
 
   let name = "Lowband";
   let projects = [];
@@ -201,10 +202,10 @@
       <div class="skills">
         {#each skills as skill (skill.id)}
           <div class="skill" animate:flip={{ duration: 500 }}>
-            <!-- Link to individual skill page using anchor tag -->
-            <a href="/skills/{skill.name}">
+            <!-- Link to individual skill page using Link component -->
+            <Link to={`/skills/${skill.name}`}>
               {skill.name}
-            </a>
+            </Link>
           </div>
         {/each}
       </div>
