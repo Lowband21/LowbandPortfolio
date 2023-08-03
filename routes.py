@@ -6,7 +6,6 @@ base_routes = Blueprint('base_routes', __name__)
 
 @base_routes.route('/', defaults={'path': ''})
 @base_routes.route('/<path:path>')
-@base_routes.route('/blog')
 def home(path):
     # Check if path is a file by checking if it has an extension
     if splitext(path)[1]:
