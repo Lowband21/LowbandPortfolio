@@ -1,90 +1,55 @@
 <script>
   import { onMount } from "svelte";
-  import { fly } from 'svelte/transition';
-  import { flip } from 'svelte/animate';
-  let name = "Lowband";
-  let projects = [];
-  let skills = [];
-  let bio = "";
-
-  onMount(async () => {
-    try {
-      const res1 = await fetch('/api/getProjects');
-      projects = await res1.json();
-
-      const res2 = await fetch('/api/getSkills');
-      skills = await res2.json();
-
-      const res3 = await fetch('/api/getBio');
-      bio = await res3.text();
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  });
+  import { Router, Route, Link } from 'svelte-routing';
+  import Home from './Home.svelte';
+  import Blog from './Blog.svelte';
+  import Projects from './Projects.svelte';
 </script>
 
 <style>
-  .homepage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2em;
-    background-image: url('/background.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: #fff;
-    min-height: 100vh;
-    transition: all 0.5s ease-in-out;
-  }
+.navbar-link {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: #5294E2;  /* Changed to Bootstrap's primary color */
+  color: #ffffff !important;             /* Changed to white */
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
 
-  h1, h2 {
-    font-size: 2em;
-    margin-bottom: 1em;
-  }
+.navbar-link:hover {
+  background-color: #0056b3;  /* Darkened version of primary color */
+}
 
-  .skills, .projects {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 1em;
-  }
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  background-color: #404552;  /* Changed to Bootstrap's light color */
+  border-radius: 15px; /* New property */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-  .skill, .project {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin: .5em;
-    padding: .5em;
-    background: white;
-    transition: all 0.3s ease-in-out;
-    color: #3c4043; /* Add this line */
-  }
-
-  .skill:hover, .project:hover {
-    transform: scale(1.1);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  }
+.navbar-link :global(a){
+  color: #000000;  /* Changed to white */
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.navbar-link :global(a:hover), .navbar-link :global(a:focus) {
+  color: #000000;
+}
 </style>
 
-<div class="homepage" in:fly={{ x: 0, y: -200, delay: 500, duration: 500 }}>
-  <h1>Welcome to {name}'s Portfolio</h1>
-  <p>{bio}</p>
-
-  <h2>Skills</h2>
-  <div class="skills">
-    {#each skills as skill (skill.id)}
-      <div class="skill" animate:flip={{ duration: 500 }}>{skill.name}</div>
-    {/each}
-  </div>
-
-  <h2>Projects</h2>
-  <div class="projects">
-    {#each projects as project (project.id)}
-      <div class="project" animate:flip={{ duration: 500 }}>
-        <h3>{project.name}</h3>
-        <p>{project.description}</p>
-      </div>
-    {/each}
-  </div>
-</div>
+<Router>
+  <nav class="navbar">
+    <div class="navbar-link"><Link to="/">Home</Link></div>
+    <div class="navbar-link"><Link to="/blog">Blog</Link></div>
+    <div class="navbar-link"><Link to="/projects">Projects</Link></div>
+  </nav>
+  <Route path="/" component={Home} />
+  <Route path="/blog" component={Blog} />
+  <Route path="/projects" component={Projects} />
+</Router>
