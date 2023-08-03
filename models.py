@@ -4,7 +4,16 @@ from flask import Flask, send_from_directory
 import os
 
 app = Flask(__name__, static_folder='public')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+# Get the original connection string
+connection_string = os.getenv('DATABASE_URL')
+
+# Check if it starts with 'postgres://'
+if connection_string.startswith('postgres://'):
+    # Replace the initial 'postgres://' with 'postgresql://'
+    connection_string = 'postgresql://' + connection_string[len('postgres://'):]
+
+# Now set the new connection string
+app.config['SQLALCHEMY_DATABASE_URI'] = connection_string
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
