@@ -35,7 +35,6 @@ def create_db():
         db.create_all()
 
 def fill_db():
-
     with app.app_context():
         skills = ['Python', 'Javascript', 'Java', 'C&C++', 'Rust', 'Haskell', 'Git', 'Regex', 'Markdown', 'Modal Editing', 'SQL', 'Embedded Systems', 'Networking', 'Artificial Intelligence', 'Linux System Administration', 'Docker', 'Virtualization', 'Shell Scripting', 'Automation', 'Web Development']
         

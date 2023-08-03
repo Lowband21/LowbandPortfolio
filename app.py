@@ -11,4 +11,4 @@ app.register_blueprint(base_routes)
 if __name__ == "__main__":
     create_db()
     fill_db()
-    app.run(debug=True)
+    app.run(debug=False)
