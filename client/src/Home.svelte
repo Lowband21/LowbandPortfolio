@@ -2,25 +2,11 @@
   import { onMount } from "svelte";
   import { fly } from 'svelte/transition';
   import { flip } from 'svelte/animate';
-  import { Link } from 'svelte-routing';
 
   let name = "Lowband";
   let projects = [];
   let skills = [];
   let bio = "";
-
-  let isMenuOpen = false;
-
-  function toggleMenu() {
-    isMenuOpen = !isMenuOpen;
-    console.log("Menu toggled");
-  }
-  // Handle keyboard events
-  function handleKeyPress(event) {
-    if (event.key === "Enter") {
-      toggleMenu();
-    }
-  }
 
   // Your elevator pitch details
   let uniqueTrait = "innovative problem solver";
@@ -69,14 +55,14 @@
     color: #333;
   }
 
-  .skills, .projects {
+  .skills {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 2em;
   }
 
-  .skill, .project {
+  .skill {
     border: 1px solid #ddd;
     border-radius: 5px;
     margin: .5em;
@@ -86,57 +72,9 @@
     background-color: #fff;
   }
 
-  .skill:hover, .project:hover {
+  .skill:hover {
     transform: scale(1.1);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  }
-
-  .menu-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease-in-out;
-  }
-
-  .menu-items {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
-  }
-
-  .menu-items a {
-    color: #fff;
-    font-size: 1.5rem;
-    text-decoration: none;
-    transition: color 0.2s ease-in-out;
-  }
-
-  .menu-items a:hover {
-    color: #007bff;
-  }
-
-  .menu-open {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .menu-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-    cursor: pointer;
-    font-size: 24px;
   }
 
   .full-width-container {
