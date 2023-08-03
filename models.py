@@ -50,10 +50,9 @@ def fill_db():
             My toolkit of programming languages spans Python, Java, C&C++, Rust, Javascript and Haskell, with a particular focus on Rust and Python, owing to my extensive practical experience. \
             Beyond programming, I also bring proficiency in Linux system administration, Docker, Virtualization, and Shell Scripting. \
             As a technophile, my passion lies in leveraging these skills to solve complex problems and innovate."
-        existing_bio = Bio.query.first()
-        if not existing_bio:
-            bio = Bio(bio=bio_text)
-            db.session.add(bio)
+
+        bio = Bio(bio=bio_text)
+        db.session.add(bio)
 
         projects = [
             {
