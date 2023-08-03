@@ -1,5 +1,5 @@
 {
-  "name": "Lowband Portfolio",
+  "name": "lowbandportfolio",
   "version": "1.0.0",
   "dependencies": {
     "@tsconfig/svelte": "^5.0.0",

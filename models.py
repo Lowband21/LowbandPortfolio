@@ -1,9 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask import Flask, send_from_directory
+import os
 
 app = Flask(__name__, static_folder='public')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://mysql:Lysergic@localhost/portfolio'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
