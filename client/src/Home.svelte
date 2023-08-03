@@ -147,7 +147,7 @@
       <h3>University of Denver</h3>
       <p>
         <strong>Generative AI Research Assistant</strong> (Apr 2023 - Present, Hybrid)<br>
-        Project leader and researcher for professor Stephen Hutt<br>
+        Project leader and researcher for professor Stephen Hutt working on quiz generation<br>
         <strong>Teaching Assistant</strong> (Mar 2023 - Jun 2023, Remote)<br>
         Assisted and graded multiple graduate level data science classes.<br>
         <strong>Algorithms and Data Structures Tutor</strong> (Feb 2023 - Mar 2023, Hybrid)<br>
