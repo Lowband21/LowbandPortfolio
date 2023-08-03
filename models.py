@@ -37,7 +37,7 @@ def create_db():
 def fill_db():
 
     with app.app_context():
-        skills = ['Python', 'Java', 'C&C++', 'Rust', 'Haskell', 'Git', 'Regex', 'Markdown', 'Vim', 'SQL', 'NoSQL', 'Embedded Systems', 'Networking', 'Artificial Intelligence', 'Linux System Administration', 'Docker', 'Virtualization', 'Bash Scripting', 'Automation']
+        skills = ['Python', 'Javascript', 'Java', 'C&C++', 'Rust', 'Haskell', 'Git', 'Regex', 'Markdown', 'Modal Editing', 'SQL', 'Embedded Systems', 'Networking', 'Artificial Intelligence', 'Linux System Administration', 'Docker', 'Virtualization', 'Shell Scripting', 'Automation', 'Web Development']
         
         for skill in skills:
             existing_skill = Skill.query.filter_by(name=skill).first()
@@ -45,7 +45,11 @@ def fill_db():
                 s = Skill(name=skill)
                 db.session.add(s)
         
-        bio_text = "A diligent Computer Science student from the University of Denver with a strong academic record. I have a profound knowledge and hands-on experience in various programming languages including Python, Java, C&C++, Rust, and Haskell. My expertise also extends to Linux system administration, Docker, Virtualization, and Bash Scripting."
+        bio_text = "I'm a meticulous and driven Computer Science student from the University of Denver, \
+            boasting a robust academic performance. \
+            My toolkit of programming languages spans Python, Java, C&C++, Rust, Javascript and Haskell, with a particular focus on Rust and Python, owing to my extensive practical experience. \
+            Beyond programming, I also bring proficiency in Linux system administration, Docker, Virtualization, and Shell Scripting. \
+            As a technophile, my passion lies in leveraging these skills to solve complex problems and innovate."
         existing_bio = Bio.query.first()
         if not existing_bio:
             bio = Bio(bio=bio_text)
@@ -95,6 +99,18 @@ def fill_db():
             {
                 'name': 'MQTT CMD Internal Testing and Validation',
                 'description': "A async program developed in Rust providing an interface to an embedded system over MQTT."
+            },
+            {
+                'name': 'GPTFit',
+                'description': "A webapp built to automate the process of generating exercise programs by utilizing openai's API"
+            },
+            {
+                'name': 'Quiz Generation',
+                'description': "An expansive set of tools for generating and evaluating quiz questions from academic content by utilizing openai's API"
+            },
+            {
+                'name': 'This Portfolio',
+                'description': "A Svelte+Flask personal portfolio website"
             }
         ]
 
