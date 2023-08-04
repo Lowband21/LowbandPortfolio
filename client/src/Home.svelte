@@ -32,7 +32,7 @@
   });
 </script>
 
-<div class="homepage" in:fly={{ x: 0, y: -200, delay: 500, duration: 50 }}>
+<div class="homepage">
   <!-- Welcome Section -->
   <div class="full-width-container welcome-container">
     <div class="section-content">

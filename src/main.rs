@@ -1,4 +1,4 @@
-use actix_web::{web, App, HttpServer, HttpResponse};
+use actix_web::{web, App, HttpServer, HttpResponse, HttpRequest};
 use diesel::r2d2::{ConnectionManager, Pool};
 use diesel::PgConnection;
 use std::env;
@@ -41,6 +41,21 @@ async fn main() -> std::io::Result<()> {
                     .route("/getSkills", web::get().to(get_skills))
                     .route("/getBio", web::get().to(get_bio)),
                     )
+            .default_service(
+                web::route().to(move |req: HttpRequest| {
+                    let path = req.path().to_owned();
+                    async move {
+                        if path.starts_with("/api") {
+                            HttpResponse::NotFound().finish()
+                        } else {
+                            match actix_files::NamedFile::open("./client/public/index.html") {
+                                Ok(file) => file.into_response(&req),
+                                Err(_) => HttpResponse::InternalServerError().finish(),
+                            }
+                        }
+                    }
+                })
+            )
     })
     .bind(format!("0.0.0.0:{}", env::var("PORT").unwrap_or_else(|_| "5000".to_string())))?
     .run()

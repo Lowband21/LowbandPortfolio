@@ -1,11 +1,20 @@
 <!-- Blog.svelte -->
 <script>
-  import { blogPosts } from './blog/index.js';
-  import { Link } from 'svelte-routing';
+  import { blogPosts } from "./blog/index.js";
+  import { Link } from "svelte-routing";
 
-  let posts = blogPosts.map((Component, id) => ({ id, Component }));
+  let posts = blogPosts.map((Component, id) => ({ id, Component })).reverse();
 </script>
 
+<div class="blog-list">
+  {#each posts as { id, Component: { component, metadata } } (id)}
+    <div class="blog-post">
+      <h2>{metadata.title}</h2>
+      <div>{@html metadata.brief}</div>
+      <Link to={"/post/" + id}>Read more...</Link>
+    </div>
+  {/each}
+</div>
 
 <style>
   /* Style for blog post list */
@@ -20,19 +29,4 @@
     padding: 1rem;
     margin-bottom: 1rem;
   }
-
-  .blog-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-  }
 </style>
-
-
-<div class="blog-list">
-  {#each posts as { id, Component } (id)}
-    <div class="blog-post">
-      <svelte:component this={Component} />
-      <Link to={"/post/" + id}>Read more...</Link>
-    </div>
-  {/each}
-</div>
