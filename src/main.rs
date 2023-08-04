@@ -42,7 +42,7 @@ async fn main() -> std::io::Result<()> {
                     .route("/getBio", web::get().to(get_bio)),
                     )
     })
-    .bind("127.0.0.1:5000")?
+    .bind(format!("0.0.0.0:{}", env::var("PORT").unwrap_or_else(|_| "5000".to_string())))?
     .run()
     .await
 }
