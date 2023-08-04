@@ -1,1 +1,1 @@
-web: ./target/release/LowbandPortfolio
+web: ./target/release/lowband_portfolio
