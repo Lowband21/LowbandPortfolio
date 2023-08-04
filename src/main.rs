@@ -16,6 +16,7 @@ type DbPool = Pool<ConnectionManager<PgConnection>>;
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
+    println!("Here");
     dotenv().ok();
 
     std::env::set_var("RUST_LOG", "actix_web=info");
@@ -33,7 +34,6 @@ async fn main() -> std::io::Result<()> {
             .wrap(Logger::default())
             .app_data(web::Data::new(pool.clone()))
             .configure(routes::init_routes)
-            .data(pool.clone())
             .service(actix_files::Files::new("/", "./client/public").index_file("index.html"))
             .service(
                 web::scope("/api")
