@@ -1,15 +1,15 @@
 <!-- Post.svelte -->
 <script>
-  import { blogPosts } from './blog/index.js';
-  import { onMount } from 'svelte';
-  import { Link } from 'svelte-routing';
-  
+  import { blogPosts } from "./blog/index.js";
+  import { onMount } from "svelte";
+  import { Link } from "svelte-routing";
+
   export let id;
 
   let Component;
 
   onMount(async () => {
-    Component = blogPosts[id];
+    Component = blogPosts[id].component;
   });
 </script>
 
@@ -19,3 +19,4 @@
   {/if}
   <Link to="/blog">Back to blog</Link>
 </div>
+

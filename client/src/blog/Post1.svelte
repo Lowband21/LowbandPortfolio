@@ -1,5 +1,6 @@
 <!-- Post1.svelte -->
 <script>
+  console.log("Post1 Loaded");
 </script>
 
 <div>
@@ -72,6 +73,5 @@
     journey with this tech stack and encourage others to explore what it has to
     offer.
   </p>
-  `,
 </div>
 
