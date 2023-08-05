@@ -1,6 +1,6 @@
 use serde::Serialize;
 use diesel::Queryable;
-use std::fmt;
+
 
 #[derive(Debug, Queryable, Serialize)]
 pub struct Project {

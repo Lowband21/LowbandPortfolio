@@ -1,28 +1,12 @@
-use actix_web::{HttpResponse, ResponseError, http::StatusCode, web, Responder, Error as ActixError};
-use actix_web::error::BlockingError;
+use actix_web::{HttpResponse, web, Responder, Error as ActixError};
+
 use serde_derive::Deserialize;
-
-use crate::models::{Bio, Project, Skill};
-
-//use crate::schema::projects::dsl::*;
-//use crate::schema::{bio::dsl::*, skills::dsl::*};
-//use crate::schema::{bio, projects, skills};
 
 use crate::DbPool;
 
-use diesel::prelude::*;
-use diesel::r2d2::{self, ConnectionManager};
-use diesel::PgConnection;
-use diesel::r2d2::PooledConnection;
-use diesel::QueryDsl;
-use diesel::RunQueryDsl;
-
 use serde::Serialize;
 
-use std::fmt;
-
-use actix_web::{get, post, put, delete, Error};
-use diesel::result::Error as DieselError;
+use actix_web::Error;
 
 use openai_api_rust::*;
 use openai_api_rust::chat::*;
@@ -30,10 +14,6 @@ use openai_api_rust::chat::*;
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ChatMessage {
     pub text: String,
-}
-
-pub async fn index() -> impl Responder {
-    HttpResponse::Ok().body("Hello, world!")
 }
 
 pub async fn get_projects(pool: web::Data<DbPool>) -> Result<HttpResponse, ActixError> {
@@ -103,7 +83,7 @@ pub async fn get_bio(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> {
 }
 
 pub async fn chat(
-    pool: web::Data<DbPool>,
+    _pool: web::Data<DbPool>,
     msg: web::Json<ChatMessage>,
 ) -> Result<HttpResponse, ActixError> {
     println!("In Chat with message: {:?}", msg);
