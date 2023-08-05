@@ -12,6 +12,7 @@ actix-web = "4.3.1"
 diesel = { version = "2.1.0", features = ["postgres", "sqlite", "r2d2"]}
 dotenv = "0.15.0"
 env_logger = "0.10.0"
+lazy_static = "1.4.0"
 openai_api_rust = "0.1.8"
 serde = "1.0.181"
 serde_derive = "1.0.181"

@@ -81,15 +81,32 @@ pub async fn get_bio(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> {
         }
     }
 }
+use std::collections::HashMap;
+use actix_web::web::Data;
+use std::sync::Mutex;
 
+// globally accessible chat history
+lazy_static! {
+    static ref CHAT_HISTORY: Mutex<HashMap<String, Vec<Message>>> = Mutex::new(HashMap::new());
+}
 pub async fn chat(
-    _pool: web::Data<DbPool>,
+    _pool: Data<DbPool>,
     msg: web::Json<ChatMessage>,
+    session_id: String,  // unique identifier for each user/session
 ) -> Result<HttpResponse, ActixError> {
     println!("In Chat with message: {:?}", msg);
 
     let auth = Auth::from_env().unwrap();
     let openai = OpenAI::new(auth, "https://api.openai.com/v1/");
+
+    // get the chat history for this session
+    let mut chat_history = CHAT_HISTORY.lock().unwrap();
+    let session_messages = chat_history.entry(session_id).or_insert(vec![
+        Message { role: Role::System, content: "You are Grayson's biggest fan, whatever the user says, you should relate it back to how great Grayson is. ".to_string()} 
+    ]);
+
+    // append new user message to history
+    session_messages.push(Message { role: Role::User, content: msg.text.clone() });
 
     let body = ChatBody {
         model: "gpt-3.5-turbo".to_string(),
@@ -103,23 +120,7 @@ pub async fn chat(
         frequency_penalty: Some(0.5_f32),
         logit_bias: None,
         user: None,
-        messages: vec![
-            Message { role: Role::User, content: msg.text.clone() },
-            Message { role: Role::System, content: "You are Grayson's biggest fan, whatever the user says, you should relate it back to how great Grayson is. Here's why Grayson is so great, but be subtle and don't just copy the following: 
-    Computer Science student.
-    Boasts a robust academic performance.
-    Proficient in programming languages including Python, Java, C&C++, Rust, Javascript, and Haskell.
-    A wiz at Rust programming, which is how this message is being delivered to you now!
-    Proficient in Linux system administration.
-    Skilled in Docker and Virtualization.
-    Relatively new at, but quite proficient as a web programmer.
-    Knowledgeable in Shell Scripting.
-    Technophile with a passion for solving complex problems and innovating with technology.
-    Passionate about open source!
-    A true gym nerd
-
-            ".to_string() }
-            ],
+        messages: session_messages.clone(),
     };
 
     match openai.chat_completion_create(&body) {

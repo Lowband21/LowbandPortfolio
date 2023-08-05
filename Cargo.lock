@@ -1275,6 +1275,7 @@ dependencies = [
  "diesel",
  "dotenv",
  "env_logger",
+ "lazy_static",
  "openai_api_rust",
  "serde",
  "serde_derive",

@@ -41,7 +41,7 @@
 <style>
     #chat-window {
         max-width: 90%;
-        height: 400px;
+        height: 80%;
         overflow: auto;
         border: 3px solid #000000;
         padding: 10px;
