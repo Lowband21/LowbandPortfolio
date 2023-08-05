@@ -116,7 +116,7 @@
   {#each projects as project (project.id)}
     <div class="project" animate:flip={{ duration: 500 }}>
       <!-- Link to individual project page using Link component -->
-      <Link to="/project/{project.id}">
+      <Link to="/project/{project.title.replaceAll(" ", "_")}">
         <h3>{project.title}</h3>
         <p>{project.description}</p>
       </Link>

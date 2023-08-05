@@ -7,14 +7,11 @@
   import Post from './Post.svelte';
   import Project from './Project.svelte'; // New line
   import Skill from './Skill.svelte'; // New line
-  import Python from './skills/Python.svelte';
-  import Modal_Editing from "./skills/Modal_Editing.svelte";
-  import Markdown from "./skills/Markdown.svelte";
 
   import Particles from "svelte-particles";
 
   let particlesConfig = {
-    fpsLimit: 240,
+    fpsLimit: 120,
     particles: {
       color: {
         value: "#000"
