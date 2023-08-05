@@ -4,6 +4,7 @@
   import Home from './Home.svelte';
   import Blog from './Blog.svelte';
   import Projects from './Projects.svelte';
+  import Chat from './Chat.svelte';
   import Post from './Post.svelte';
   import Project from './Project.svelte'; // New line
   import Skill from './Skill.svelte'; // New line
@@ -100,10 +101,12 @@ html, body {
   <nav class="navbar">
     <div class="navbar-link"><Link to="/">Home</Link></div>
     <div class="navbar-link"><Link to="/blog">Blog</Link></div>
+    <div class="navbar-link"><Link to="/chat">Chat</Link></div>
     <div class="navbar-link"><Link to="/projects">Projects</Link></div>
   </nav>
   <Route path="/" component={Home} />
   <Route path="/blog" component={Blog} />
+  <Route path="/chat" component={Chat} />
   <Route path="/projects" component={Projects} />
   <Route path="/post/:id" let:params={params} component={Post} />
   <Route path="/project/:id" let:params>

@@ -39,7 +39,8 @@ async fn main() -> std::io::Result<()> {
                 web::scope("/api")
                     .route("/getProjects", web::get().to(get_projects))
                     .route("/getSkills", web::get().to(get_skills))
-                    .route("/getBio", web::get().to(get_bio)),
+                    .route("/getBio", web::get().to(get_bio))
+                    .route("/chat", web::post().to(chat)),
                     )
             .default_service(
                 web::route().to(move |req: HttpRequest| {

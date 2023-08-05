@@ -1,5 +1,6 @@
 use actix_web::{HttpResponse, ResponseError, http::StatusCode, web, Responder, Error as ActixError};
 use actix_web::error::BlockingError;
+use serde_derive::Deserialize;
 
 use crate::models::{Bio, Project, Skill};
 
@@ -22,6 +23,14 @@ use std::fmt;
 
 use actix_web::{get, post, put, delete, Error};
 use diesel::result::Error as DieselError;
+
+use openai_api_rust::*;
+use openai_api_rust::chat::*;
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ChatMessage {
+    pub text: String,
+}
 
 pub async fn index() -> impl Responder {
     HttpResponse::Ok().body("Hello, world!")
@@ -93,11 +102,65 @@ pub async fn get_bio(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> {
     }
 }
 
+pub async fn chat(
+    pool: web::Data<DbPool>,
+    msg: web::Json<ChatMessage>,
+) -> Result<HttpResponse, ActixError> {
+    println!("In Chat with message: {:?}", msg);
+
+    let auth = Auth::from_env().unwrap();
+    let openai = OpenAI::new(auth, "https://api.openai.com/v1/");
+
+    let body = ChatBody {
+        model: "gpt-3.5-turbo".to_string(),
+        max_tokens: Some(1000),
+        temperature: Some(0.9_f32),
+        top_p: Some(0.5_f32),
+        n: Some(1),
+        stream: Some(false),
+        stop: None,
+        presence_penalty: None,
+        frequency_penalty: Some(0.5_f32),
+        logit_bias: None,
+        user: None,
+        messages: vec![
+            Message { role: Role::User, content: msg.text.clone() },
+            Message { role: Role::System, content: "You are Grayson's biggest fan, whatever the user says, you should relate it back to how great Grayson is. Here's why Grayson is so great, but be subtle and don't just copy the following: 
+    Computer Science student.
+    Boasts a robust academic performance.
+    Proficient in programming languages including Python, Java, C&C++, Rust, Javascript, and Haskell.
+    A wiz at Rust programming, which is how this message is being delivered to you now!
+    Proficient in Linux system administration.
+    Skilled in Docker and Virtualization.
+    Relatively new at, but quite proficient as a web programmer.
+    Knowledgeable in Shell Scripting.
+    Technophile with a passion for solving complex problems and innovating with technology.
+    Passionate about open source!
+    A true gym nerd
+
+            ".to_string() }
+            ],
+    };
+
+    match openai.chat_completion_create(&body) {
+        Ok(response) => {
+            let message = &response.choices[0].message.as_ref().unwrap();
+            println!("{:?}", message);
+            Ok(HttpResponse::Ok().json(message.content.clone()))
+        }
+        Err(e) => {
+            println!("{:?}", e);
+            Ok(HttpResponse::InternalServerError().finish())
+        }
+    }
+}
+
 pub fn init_routes(cfg: &mut web::ServiceConfig) {
     cfg.service(
         web::scope("/api")
             .route("/getProjects", web::get().to(get_projects))
             .route("/getSkills", web::get().to(get_skills))
-            .route("/getBio", web::get().to(get_bio)),
+            .route("/getBio", web::get().to(get_bio))
+            .route("/chat", web::post().to(chat)),
     );
 }
