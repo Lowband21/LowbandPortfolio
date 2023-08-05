@@ -155,8 +155,8 @@
   }
 
   h1 {
-    font-size: 4em;
-    color: #ffffff;
+    font-size: 3em;
+    color: #000000;
   }
 
   h2 {
