@@ -4,12 +4,12 @@
     let input = "";
     let error = "";
 
-    async function getGptResponse(text) {
+    async function getGptResponse(chatData) {
         try {
             let response = await fetch("/api/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ text })
+                body: JSON.stringify(chatData)
             });
 
             if (!response.ok) {
@@ -28,7 +28,7 @@
     async function addMessage() {
         if (!input) return;
         messages = [...messages, { text: input, user: true }];
-        let response = await getGptResponse(input);
+        let response = await getGptResponse({ messages });
         input = "";
         if (response) {
             messages = [...messages, { text: response, user: false }];
@@ -37,6 +37,18 @@
         }
     }
 </script>
+
+<div id="chat-window">
+    {#each messages as message (message)}
+        <div class={message.user ? "user-message" : "gpt-message"}>
+            {message.text}
+        </div>
+    {/each}
+</div>
+<form on:submit|preventDefault={addMessage} class=prompt>
+    <input bind:value={input} placeholder="Type a message...">
+    <button type="submit">Send</button>
+</form>
 
 <style>
     #chat-window {
@@ -75,15 +87,3 @@
         background-color: #f1faee;
     }
 </style>
-
-<div id="chat-window">
-    {#each messages as message (message)}
-        <div class={message.user ? "user-message" : "gpt-message"}>
-            {message.text}
-        </div>
-    {/each}
-</div>
-<form on:submit|preventDefault={addMessage} class=prompt>
-    <input bind:value={input} placeholder="Type a message...">
-    <button type="submit">Send</button>
-</form>

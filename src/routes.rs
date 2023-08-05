@@ -12,8 +12,14 @@ use openai_api_rust::*;
 use openai_api_rust::chat::*;
 
 #[derive(Debug, Serialize, Deserialize)]
+pub struct ChatData {
+    pub messages: Vec<ChatMessage>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct ChatMessage {
     pub text: String,
+    pub user: bool,
 }
 
 pub async fn get_projects(pool: web::Data<DbPool>) -> Result<HttpResponse, ActixError> {
@@ -81,32 +87,26 @@ pub async fn get_bio(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> {
         }
     }
 }
-use std::collections::HashMap;
-use actix_web::web::Data;
-use std::sync::Mutex;
 
-// globally accessible chat history
-lazy_static! {
-    static ref CHAT_HISTORY: Mutex<HashMap<String, Vec<Message>>> = Mutex::new(HashMap::new());
-}
 pub async fn chat(
-    _pool: Data<DbPool>,
-    msg: web::Json<ChatMessage>,
-    session_id: String,  // unique identifier for each user/session
+    _pool: web::Data<DbPool>,
+    msg: web::Json<ChatData>,  // change ChatMessage to ChatData
 ) -> Result<HttpResponse, ActixError> {
     println!("In Chat with message: {:?}", msg);
 
     let auth = Auth::from_env().unwrap();
     let openai = OpenAI::new(auth, "https://api.openai.com/v1/");
 
-    // get the chat history for this session
-    let mut chat_history = CHAT_HISTORY.lock().unwrap();
-    let session_messages = chat_history.entry(session_id).or_insert(vec![
-        Message { role: Role::System, content: "You are Grayson's biggest fan, whatever the user says, you should relate it back to how great Grayson is. ".to_string()} 
-    ]);
-
-    // append new user message to history
-    session_messages.push(Message { role: Role::User, content: msg.text.clone() });
+    // Use the messages from the request
+    let mut messages: Vec<Message> = msg.messages.iter().map(|m| Message {
+        role: if m.user { Role::User } else { Role::System },
+        content: m.text.clone(),
+    }).collect();
+    // Append system prompt to the messages
+    messages.push(Message { 
+        role: Role::System, 
+        content: "You are Grayson's biggest fan, whatever the user says, you should relate it back to how great Grayson is. Grayson is a software engineer and computer science student, draw off of that. Make witty software jokes, bonus points if it's about the rust programming language. Grayson is a very real person and he's the one who wrote this website.".to_string() 
+    });
 
     let body = ChatBody {
         model: "gpt-3.5-turbo".to_string(),
@@ -120,7 +120,7 @@ pub async fn chat(
         frequency_penalty: Some(0.5_f32),
         logit_bias: None,
         user: None,
-        messages: session_messages.clone(),
+        messages,
     };
 
     match openai.chat_completion_create(&body) {
