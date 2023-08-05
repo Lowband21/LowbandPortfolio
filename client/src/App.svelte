@@ -11,23 +11,28 @@
   import Modal_Editing from "./skills/Modal_Editing.svelte";
   import Markdown from "./skills/Markdown.svelte";
 
-  let y = 0;
+  import Particles from "svelte-particles";
 
-  const handleScroll = () => {
-    y = window.scrollY;
+  let particlesConfig = {
+    fpsLimit: 240,
+    particles: {
+      color: {
+        value: "#000"
+      },
+      links: {
+        enable: true,
+        color: "#000"
+      },
+      move: {
+        enable: true
+      }
+    }
   };
 
-  window.addEventListener("scroll", handleScroll);
-
-  onDestroy(() => {
-    window.removeEventListener("scroll", handleScroll);
-  });
 </script>
 
 <style>
 .background {
-  background-image: url('/background.jpg');
-  background-position: center calc(50% + var(--y) * 0.5px);
   height: 100%;
   width: 100%;
   margin: 0;
@@ -65,6 +70,7 @@ html, body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin: 0;
   padding: 0;
+  z-index: 9999;
 }
 
 .navbar-link :global(a){
@@ -77,12 +83,22 @@ html, body {
 .navbar-link :global(a:hover), .navbar-link :global(a:focus) {
   color: #000000;
 }
+:global(#tsparticles) {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -9999;
+}
 </style>
 
 
-<body>
 
-<div class="background" style="--y: {y}px;">
+<Particles options={particlesConfig} />
+<div class="background">
 <Router>
   <nav class="navbar">
     <div class="navbar-link"><Link to="/">Home</Link></div>
@@ -101,4 +117,3 @@ html, body {
   </Route>
 </Router>
 </div>
-</body>

@@ -3,11 +3,13 @@
   import { fly } from "svelte/transition";
   import { flip } from "svelte/animate";
   import { Link } from "svelte-routing";
+  import Particles from "svelte-particles";
 
   let name = "Lowband";
   let projects = [];
   let skills = [];
   let bio = "";
+
 
   // Your elevator pitch details
   let uniqueTrait = "innovative problem solver";
@@ -138,10 +140,6 @@
     align-items: center;
     justify-content: center;
     padding: 0em;
-    background-image: url('/background.jpg');
-    background-position: center calc(50% + var(--y) * 0.5px);
-    background-repeat: no-repeat;
-    background-size: cover;
     min-height: 100vh;
     transition: all 0.1s ease-in-out;
     position: relative;
