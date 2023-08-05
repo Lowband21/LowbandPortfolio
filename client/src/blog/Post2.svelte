@@ -1,14 +1,13 @@
 <script>
   export let post = {
-    title: "I take it back: Actix > Flask",
-    brief: `Venture with me as I navigate my journey from Python's Flask to Rust's Actix. Experience the challenges and victories encountered as I master Rust's robust, efficient, and type-safe traits. This personal account will highlight my transition, focusing on setting up, routing, handling requests and responses, database connectivity, and error handling in Rust Actix. Despite a steep learning curve, I found Rust Actix's performance and robustness incredibly rewarding, enhancing my web development repertoire.`,
+    title: "",
   };
 </script>
 
 <div>
   <h2>{post.title}</h2>
   <section>
-    <h1>Introduction</h1>
+    <h1>I Take it Back: Actix > Flask</h1>
     <p>
       My journey of web development started with the enriching experience of
       Svelte and Flask, offering a delightful blend of performance and
