@@ -17,8 +17,10 @@
         break;
       case 'GPTFit':
         ProjectComponent = Project2;
+        break;
       case 'Quiz_Generation':
         ProjectComponent = Quiz_Gen;
+        break;
       case 'Simple_RSA_Messager':
         ProjectComponent = RSA_Messager;
         break;
