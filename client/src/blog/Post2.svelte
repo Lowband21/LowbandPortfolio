@@ -4,7 +4,23 @@
   };
 </script>
 
-<div>
+<style>
+  .post {
+    width: 90%;
+    margin: auto;
+    background-color: #333333;
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    border: 3px solid #000;
+  }
+  h1, h2, h3, p {
+    color: #e8e8e8;
+  }
+</style>
+
+<div class='post'>
   <h2>{post.title}</h2>
   <section>
     <h1>I Take it Back: Actix > Flask</h1>

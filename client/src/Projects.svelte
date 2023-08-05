@@ -69,18 +69,17 @@
     flex-wrap: wrap;
     justify-content: center;
     padding: 1em;
-    background-color: #D6EAF8;
   }
 
   .project {
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
     border-radius: 5px;
     margin: .5em;
     padding: .5em;
     transition: all 0.3s ease-in-out;
-    width: 100%;
+    width: 90%;
     color: #333;
-    background-color: #fff;
+    background-color: #333333;
   }
 
   .project:hover {
@@ -90,14 +89,14 @@
 
   /* Project title style */
   .project h3 {
-    color: #333;
+    color: #e8e8e8;
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
   }
 
   /* Project description style */
   .project p {
-    color: #333;
+    color: #e8e8e8;
     font-size: 1rem;
     line-height: 1.5;
   }
@@ -106,11 +105,14 @@
   .project h3:hover, .project p:hover {
     color: #007bff;
   }
+  h1 {
+    color:#e8e8e8;
+    justify-content: center;
+  }
 </style>
 
 <!-- Projects Section -->
 <div class="projects">
-  <h1>Recent Projects:</h1>
   {#each projects as project (project.id)}
     <div class="project" animate:flip={{ duration: 500 }}>
       <!-- Link to individual project page using Link component -->

@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { Router, Route, Link } from 'svelte-routing';
   import Home from './Home.svelte';
   import Blog from './Blog.svelte';
@@ -10,9 +10,35 @@
   import Python from './skills/Python.svelte';
   import Modal_Editing from "./skills/Modal_Editing.svelte";
   import Markdown from "./skills/Markdown.svelte";
+
+  let y = 0;
+
+  const handleScroll = () => {
+    y = window.scrollY;
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  onDestroy(() => {
+    window.removeEventListener("scroll", handleScroll);
+  });
 </script>
 
 <style>
+.background {
+  background-image: url('/background.jpg');
+  background-position: center calc(50% + var(--y) * 0.5px);
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
 .navbar-link {
   display: inline-block;
   padding: 10px 20px;
@@ -30,11 +56,15 @@
 
 .navbar {
   display: flex;
-  justify-content: space-around;
+  justify-content:space-around;
   padding: 10px 0;
-  background-color: #404552;  /* Changed to Bootstrap's light color */
-  border-radius: 15px; /* New property */
+  width: 100%;
+  height:max-content;
+  background-color: #333333;  /* Changed to Bootstrap's light color */
+  border-radius: 0px; /* New property */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  padding: 0;
 }
 
 .navbar-link :global(a){
@@ -49,6 +79,10 @@
 }
 </style>
 
+
+<body>
+
+<div class="background" style="--y: {y}px;">
 <Router>
   <nav class="navbar">
     <div class="navbar-link"><Link to="/">Home</Link></div>
@@ -66,3 +100,5 @@
     <Skill name="{params.name}"/>
   </Route>
 </Router>
+</div>
+</body>

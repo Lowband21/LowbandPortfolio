@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { fly } from "svelte/transition";
   import { flip } from "svelte/animate";
   import { Link } from "svelte-routing";
@@ -17,6 +17,7 @@
   function getSkillURL(skillId) {
     return `/skills/${skillId}`;
   }
+
 
   onMount(async () => {
     try {
@@ -42,14 +43,15 @@
 
   <!-- Bio Section -->
   <div class="full-width-container bio-container">
-    <div class="bio section-content">
+    <div class="bio section-content text-block">
+      <h2>About Me</h2>
       <p>{bio}</p>
     </div>
   </div>
 
   <!-- Experience Section -->
   <div class="full-width-container experience-container">
-    <div class="section-content">
+    <div class="section-content text-block">
       <h2>Experience</h2>
 
       <h3>University of Denver</h3>
@@ -87,7 +89,7 @@
 
   <!-- Education Section -->
   <div class="full-width-container education-container">
-    <div class="section-content">
+    <div class="section-content text-block">
       <h2>Education</h2>
 
       <h3>University of Denver</h3>
@@ -114,7 +116,7 @@
 
   <!-- Skills Section -->
   <div class="full-width-container skills-container">
-    <div class="skills-section-content">
+    <div class="full-width-container ">
       <div class="skills">
         {#each skills as skill (skill.id)}
           <div class="skill" animate:flip={{ duration: 500 }}>
@@ -136,23 +138,47 @@
     align-items: center;
     justify-content: center;
     padding: 0em;
-    background-color: #474747;
+    background-image: url('/background.jpg');
+    background-position: center calc(50% + var(--y) * 0.5px);
+    background-repeat: no-repeat;
+    background-size: cover;
     min-height: 100vh;
     transition: all 0.1s ease-in-out;
     position: relative;
     z-index: 1;
   }
 
-  h1,
+  .text-block {
+    background-color: #333333;
+    border: 3px solid #000000;
+    padding: 20px; /* Add some padding so that the background extends beyond just the text */
+    border-radius: 20px;
+    opacity: 90%;
+  }
+
+  h1 {
+    font-size: 4em;
+    color: #ffffff;
+  }
+
   h2 {
     font-size: 3em;
+    margin-bottom: 1em auto;
+    color: #ffffff;
+    text-justify: center;
+    justify-content: center;
+    justify-self: center;
+  }
+
+  h3 {
+    font-size: 2em;
     margin-bottom: 1em;
-    color: #333;
+    color: #ffffff;
   }
 
   p {
     font-size: 1.5em;
-    color: #333;
+    color: #ffffff;
   }
 
   .skills {
@@ -160,16 +186,16 @@
     flex-wrap: wrap;
     justify-content: center;
     padding: 2em;
+    background-color: #333333;
   }
 
   .skill {
-    border: 1px solid #ddd;
     border-radius: 5px;
     margin: 0.5em;
     padding: 0.5em;
     transition: all 0.3s ease-in-out;
     color: #333;
-    background-color: #fff;
+    background-color: #ffffff;
   }
 
   .skill:hover {
@@ -184,18 +210,18 @@
   }
 
   .welcome-container {
-    background-color: #ebf5fb;
     text-align: center;
     padding: 2em 0;
   }
 
   .bio-container {
-    background-color: #ebf5fb;
+    text-align: center;
   }
 
   .skills-container {
-    background-color: #d6eaf8;
     text-align: center;
+    width: 100%;
+    border: 3px solid #000000;
   }
 
   .experience-container,
@@ -206,12 +232,10 @@
   }
 
   .experience-container {
-    background-color: #aed6f1;
     text-align: left;
   }
 
   .education-container {
-    background-color: #a9cce3;
     text-align: right;
   }
 
@@ -219,7 +243,8 @@
     width: 80%;
   }
   .skills-section-content {
-    width: 80%;
+    width: 100%;
   }
+  
 </style>
 
