@@ -1,4 +1,4 @@
-use actix_web::{web, Error as ActixError, HttpResponse, Responder};
+use actix_web::{web, Error as ActixError, HttpResponse};
 
 use serde_derive::Deserialize;
 
@@ -101,8 +101,8 @@ pub async fn chat(
         })
         .collect();
     // Append system prompt to the messages
-    messages.push(Message { 
-        role: Role::System, 
+    messages.push(Message {
+        role: Role::System,
         content: "You are Grayson's biggest fan, whatever the user says, you should relate it back to how great Grayson is. Grayson is a software engineer and computer science student, draw off of that. Make witty software jokes, bonus points if it's about the rust programming language. Grayson is a very real person and he's the one who wrote this website.".to_string() 
     });
 

@@ -12,9 +12,6 @@ mod schema;
 
 use crate::routes::*;
 
-#[macro_use]
-extern crate lazy_static;
-
 type DbPool = Pool<ConnectionManager<PgConnection>>;
 
 #[actix_rt::main]
