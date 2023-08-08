@@ -1,14 +1,14 @@
-use actix_web::{web, App, HttpServer, HttpResponse, HttpRequest};
+use actix_web::middleware::Logger;
+use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer};
 use diesel::r2d2::{ConnectionManager, Pool};
 use diesel::PgConnection;
-use std::env;
 use dotenv::dotenv;
-use actix_web::middleware::Logger;
+use std::env;
 
+mod db;
 mod models;
 mod routes;
 mod schema;
-mod db;
 
 use crate::routes::*;
 
@@ -44,24 +44,25 @@ async fn main() -> std::io::Result<()> {
                     .route("/getSkills", web::get().to(get_skills))
                     .route("/getBio", web::get().to(get_bio))
                     .route("/chat", web::post().to(chat)),
-                    )
-            .default_service(
-                web::route().to(move |req: HttpRequest| {
-                    let path = req.path().to_owned();
-                    async move {
-                        if path.starts_with("/api") {
-                            HttpResponse::NotFound().finish()
-                        } else {
-                            match actix_files::NamedFile::open("./client/public/index.html") {
-                                Ok(file) => file.into_response(&req),
-                                Err(_) => HttpResponse::InternalServerError().finish(),
-                            }
+            )
+            .default_service(web::route().to(move |req: HttpRequest| {
+                let path = req.path().to_owned();
+                async move {
+                    if path.starts_with("/api") {
+                        HttpResponse::NotFound().finish()
+                    } else {
+                        match actix_files::NamedFile::open("./client/public/index.html") {
+                            Ok(file) => file.into_response(&req),
+                            Err(_) => HttpResponse::InternalServerError().finish(),
                         }
                     }
-                })
-            )
+                }
+            }))
     })
-    .bind(format!("0.0.0.0:{}", env::var("PORT").unwrap_or_else(|_| "5000".to_string())))?
+    .bind(format!(
+        "0.0.0.0:{}",
+        env::var("PORT").unwrap_or_else(|_| "5000".to_string())
+    ))?
     .run()
     .await
 }

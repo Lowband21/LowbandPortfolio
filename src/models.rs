@@ -1,6 +1,5 @@
-use serde::Serialize;
 use diesel::Queryable;
-
+use serde::Serialize;
 
 #[derive(Debug, Queryable, Serialize)]
 pub struct Project {

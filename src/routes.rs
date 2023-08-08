@@ -1,4 +1,4 @@
-use actix_web::{HttpResponse, web, Responder, Error as ActixError};
+use actix_web::{web, Error as ActixError, HttpResponse, Responder};
 
 use serde_derive::Deserialize;
 
@@ -8,8 +8,8 @@ use serde::Serialize;
 
 use actix_web::Error;
 
-use openai_api_rust::*;
 use openai_api_rust::chat::*;
+use openai_api_rust::*;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ChatData {
@@ -28,9 +28,7 @@ pub async fn get_projects(pool: web::Data<DbPool>) -> Result<HttpResponse, Actix
     let projects = web::block(move || crate::db::get_all_projects(&mut conn)).await;
 
     match projects {
-        Ok(Ok(projects)) => {
-            Ok(HttpResponse::Ok().json(projects))
-        }
+        Ok(Ok(projects)) => Ok(HttpResponse::Ok().json(projects)),
         Ok(Err(e)) => {
             // Handle the case when there was an error in the inner Result
             println!("{:?}", e);
@@ -50,9 +48,7 @@ pub async fn get_skills(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> 
     let skills = web::block(move || crate::db::get_all_skills(&mut conn)).await;
 
     match skills {
-        Ok(Ok(skills)) => {
-            Ok(HttpResponse::Ok().json(skills))
-        }
+        Ok(Ok(skills)) => Ok(HttpResponse::Ok().json(skills)),
         Ok(Err(e)) => {
             // Handle the case when there was an error in the inner Result
             println!("{:?}", e);
@@ -72,9 +68,7 @@ pub async fn get_bio(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> {
     let bio = web::block(move || crate::db::get_all_bio(&mut conn)).await;
 
     match bio {
-        Ok(Ok(bio)) => {
-            Ok(HttpResponse::Ok().json(bio))
-        }
+        Ok(Ok(bio)) => Ok(HttpResponse::Ok().json(bio)),
         Ok(Err(e)) => {
             // Handle the case when there was an error in the inner Result
             println!("{:?}", e);
@@ -90,7 +84,7 @@ pub async fn get_bio(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> {
 
 pub async fn chat(
     _pool: web::Data<DbPool>,
-    msg: web::Json<ChatData>,  // change ChatMessage to ChatData
+    msg: web::Json<ChatData>, // change ChatMessage to ChatData
 ) -> Result<HttpResponse, ActixError> {
     println!("In Chat with message: {:?}", msg);
 
@@ -98,10 +92,14 @@ pub async fn chat(
     let openai = OpenAI::new(auth, "https://api.openai.com/v1/");
 
     // Use the messages from the request
-    let mut messages: Vec<Message> = msg.messages.iter().map(|m| Message {
-        role: if m.user { Role::User } else { Role::System },
-        content: m.text.clone(),
-    }).collect();
+    let mut messages: Vec<Message> = msg
+        .messages
+        .iter()
+        .map(|m| Message {
+            role: if m.user { Role::User } else { Role::System },
+            content: m.text.clone(),
+        })
+        .collect();
     // Append system prompt to the messages
     messages.push(Message { 
         role: Role::System, 
