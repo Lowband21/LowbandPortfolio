@@ -107,7 +107,7 @@ pub async fn chat(
     });
 
     let body = ChatBody {
-        model: "gpt-3.5-turbo".to_string(),
+        model: "gpt-4".to_string(),
         max_tokens: Some(1000),
         temperature: Some(0.9_f32),
         top_p: Some(0.5_f32),
