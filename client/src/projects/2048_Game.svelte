@@ -91,36 +91,48 @@
 </script>
 
 <style>
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content horizontally */
+    justify-content: center; /* Center the content vertically */
+    height: 100vh; /* Ensure body takes the full viewport height */
+}
+
 .board {
     display: grid;
-    grid-template-columns: repeat(4, 50px); /* Set explicit width for columns */
-    gap: 2px; /* Reduced gap */
-    margin: 5px; /* Margin around the board */
-    width: calc(4 * 50px + 3 * 2px + 2 * 4px); /* Explicitly set the board's width */
-    border: 1px solid #aaa; /* A subtle border */
-    background-color: #eee; /* Background color */
-    padding: 4px; /* Padding around the cells */
+    margin: auto;
+    grid-template-columns: repeat(4, 20vw); /* Columns take up 25% of viewport width */
+    gap: 0.5vw; /* Use viewport width for gap */
+    width: 80vw; /* Board takes up the full viewport width */
+    height: 45vh; /* Board takes up half the viewport height */
+    border: 0.5vw solid #aaa; 
+    background-color: #eee;
+    padding: 1vw; 
 }
 
 .cell {
-    width: 50px;
-    height: 50px;
     display: flex;
+    margin: auto;
     align-items: center;
     justify-content: center;
-    background-color: #ddd; /* Slightly darker background */
-    color: #333; /* Dark text color */
-    border-radius: 5px; /* Rounded edges */
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Depth */
+    background-color: #ddd;
+    color: #333;
+    border-radius: 2vw; /* Adjusted relative border radius */
+    box-shadow: 0.2vw 0.2vw 0.6vw rgba(0, 0, 0, 0.1);
+    width: 80%;
+    height: 80%;
+    font-size: 4vh; /* Adjust this value as per your liking, current value scales with viewport height */
+    font-family: 'Arial', sans-serif; /* Using Arial font, but feel free to change it to your preferred font */
 }
 
 button {
-    padding: 5px 15px;
-    margin: 5px;
+    padding: 1vh 3vw; /* Adjusted relative padding for button */
+    margin: 1vh;
     border: none;
     background-color: #007bff;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 1vh;
     cursor: pointer;
     transition: background-color 0.3s;
 }
