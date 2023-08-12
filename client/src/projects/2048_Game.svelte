@@ -50,16 +50,30 @@
   }
   let startX, startY, endX, endY;
 
-  function handleMouseDown(event) {
-    startX = event.clientX;
-    startY = event.clientY;
+
+  function handleStart(event) {
+    if (event.touches) { // Touch event
+      startX = event.touches[0].clientX;
+      startY = event.touches[0].clientY;
+    } else { // Mouse event
+      startX = event.clientX;
+      startY = event.clientY;
+    }
   }
 
-  function handleMouseUp(event) {
-    endX = event.clientX;
-    endY = event.clientY;
+  function handleEnd(event) {
+    if (event.changedTouches) { // Touch event
+      endX = event.changedTouches[0].clientX;
+      endY = event.changedTouches[0].clientY;
+    } else { // Mouse event
+      endX = event.clientX;
+      endY = event.clientY;
+    }
 
-    // Determine the swipe direction
+    processSwipeDirection();
+  }
+
+  function processSwipeDirection() {
     const deltaX = endX - startX;
     const deltaY = endY - startY;
 
@@ -71,7 +85,6 @@
       else performAction('MergeUp');
     }
   }
-
   onMount(() => {
     fetchBoard();
   });
@@ -122,7 +135,11 @@ button:disabled {
 }
 </style>
 
-<div class="board" on:mousedown={handleMouseDown} on:mouseup={handleMouseUp}>
+<div class="board" 
+     on:mousedown={handleStart} 
+     on:mouseup={handleEnd} 
+     on:touchstart={handleStart} 
+     on:touchend={handleEnd}>
   {#each board as row}
     {#each row as cell}
       <div class="cell" style="background-color: {getColor(cell)};">{cell}</div>
