@@ -87,4 +87,7 @@
     .gpt-message {
         background-color: #f1faee;
     }
+    h2 {
+        text-align: center;
+    }
 </style>
