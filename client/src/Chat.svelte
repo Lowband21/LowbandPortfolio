@@ -38,6 +38,7 @@
     }
 </script>
 
+<h2> Chat with my personal assistant! </h2>
 <div id="chat-window">
     {#each messages as message (message)}
         <div class={message.user ? "user-message" : "gpt-message"}>
