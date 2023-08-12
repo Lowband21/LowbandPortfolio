@@ -133,13 +133,3 @@ pub async fn chat(
         }
     }
 }
-
-pub fn init_routes(cfg: &mut web::ServiceConfig) {
-    cfg.service(
-        web::scope("/api")
-            .route("/getProjects", web::get().to(get_projects))
-            .route("/getSkills", web::get().to(get_skills))
-            .route("/getBio", web::get().to(get_bio))
-            .route("/chat", web::post().to(chat)),
-    );
-}

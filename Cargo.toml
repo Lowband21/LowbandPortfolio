@@ -8,12 +8,15 @@ edition = "2021"
 [dependencies]
 actix-files = "0.6.2"
 actix-rt = "2.8.0"
+actix-session = { version = "0.7.2", features = ["cookie-session", "redis-rs-session", "redis-actor-session"] }
 actix-web = "4.3.1"
 diesel = { version = "2.1.0", features = ["postgres", "sqlite", "r2d2"]}
 dotenv = "0.15.0"
 env_logger = "0.10.0"
+fast-math = "0.1.1"
 lazy_static = "1.4.0"
 openai_api_rust = "0.1.8"
+rand = "0.8.5"
 serde = "1.0.181"
 serde_derive = "1.0.181"
 sqlx = { version = "0.7.1", features = ["postgres", "runtime-tokio", "sqlite"]}

@@ -4,6 +4,7 @@
   import Project2 from "./projects/Project2.svelte";
   import Quiz_Gen from "./projects/Quiz_Gen.svelte";
   import RSA_Messager from "./projects/RSA_Messager.svelte";
+  import Game from "./projects/2048_Game.svelte";
   // import more projects as needed
 
   export let id; // this is the project id, which we receive as a prop
@@ -23,6 +24,9 @@
         break;
       case 'Simple_RSA_Messager':
         ProjectComponent = RSA_Messager;
+        break;
+      case '2048_Game':
+        ProjectComponent = Game;
         break;
       // handle more cases as needed
       default:

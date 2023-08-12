@@ -4,11 +4,17 @@ use diesel::r2d2::{ConnectionManager, Pool};
 use diesel::PgConnection;
 use dotenv::dotenv;
 use std::env;
+use actix_session::{storage::RedisSessionStore, Session, SessionMiddleware};
+use actix_web::cookie::Key;
 
 mod db;
 mod models;
 mod routes;
 mod schema;
+mod game;
+mod twentyfortyeight;
+
+use crate::twentyfortyeight::*;
 
 use crate::routes::*;
 
@@ -28,13 +34,21 @@ async fn main() -> std::io::Result<()> {
     let pool: DbPool = Pool::builder()
         .build(manager)
         .expect("Failed to create pool.");
+    let redis_connection_string =
+        std::env::var("REDIS_URL").unwrap_or_else(|_| String::from("redis://127.0.0.1:6379"));
+    let secret_key = Key::generate();
+    let redis_store = RedisSessionStore::new(redis_connection_string)
+        .await
+        .unwrap();
 
     HttpServer::new(move || {
         App::new()
             .wrap(Logger::default())
+            .wrap(SessionMiddleware::new(
+                redis_store.clone(),
+                secret_key.clone(),
+            ))
             .app_data(web::Data::new(pool.clone()))
-            .configure(routes::init_routes)
-            .service(actix_files::Files::new("/", "./client/public").index_file("index.html"))
             .service(
                 web::scope("/api")
                     .route("/getProjects", web::get().to(get_projects))
@@ -42,15 +56,23 @@ async fn main() -> std::io::Result<()> {
                     .route("/getBio", web::get().to(get_bio))
                     .route("/chat", web::post().to(chat)),
             )
+            .service(
+                web::scope("/game")
+                    .route("/new", web::post().to(new_game))
+                    .route("/move", web::post().to(make_move))
+                    .route("/undo", web::post().to(undo))
+                    .route("/reset", web::post().to(reset))
+            )
+            .service(actix_files::Files::new("/", "./client/public").index_file("index.html"))
             .default_service(web::route().to(move |req: HttpRequest| {
                 let path = req.path().to_owned();
                 async move {
-                    if path.starts_with("/api") {
+                    if path.starts_with("/api") || path.starts_with("/game") {
                         HttpResponse::NotFound().finish()
                     } else {
                         match actix_files::NamedFile::open("./client/public/index.html") {
                             Ok(file) => file.into_response(&req),
-                            Err(_) => HttpResponse::InternalServerError().finish(),
+                            Err(_) => HttpResponse::NotFound().finish(),
                         }
                     }
                 }
