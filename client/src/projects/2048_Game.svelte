@@ -85,6 +85,25 @@
       else performAction('MergeUp');
     }
   }
+  let previousBoard = [[]]; // To store the previous state of the board
+  
+      $: if (previousBoard && board) {
+          applyMergeAnimations();
+          previousBoard = JSON.parse(JSON.stringify(board)); // Deep copy
+      }
+  
+      function applyMergeAnimations() {
+          const cells = document.querySelectorAll(".cell");
+          for (let i = 0; i < cells.length; i++) {
+              const cell = cells[i];
+              const prevValue = previousBoard[Math.floor(i / 4)][i % 4];
+              const currValue = board[Math.floor(i / 4)][i % 4];
+              
+              if (currValue && currValue === 2 * prevValue) { // Check if cell merged
+                  cell.style.animation = "mergeEffect 0.2s";
+              }
+          }
+      }
   onMount(() => {
     fetchBoard();
   });
@@ -124,6 +143,18 @@ body {
     height: 80%;
     font-size: 4vh; /* Adjust this value as per your liking, current value scales with viewport height */
     font-family: 'Arial', sans-serif; /* Using Arial font, but feel free to change it to your preferred font */
+    transition: transform 0.5s ease-out, background-color 0.5s ease-out; /* Add this line */
+    position: relative; /* To make sure our absolute positioning inside works */
+}
+
+/* Keyframes for the merging effect */
+@keyframes mergeEffect {
+    from {
+        transform: scale(1.1);
+    }
+    to {
+        transform: scale(1);
+    }
 }
 
 button {
