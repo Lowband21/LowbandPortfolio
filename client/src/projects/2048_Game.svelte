@@ -147,6 +147,33 @@ button:disabled {
 }
 </style>
 
+<section id="game-description">
+        <h2>2048 Game - Svelte & Rust Actix</h2>
+
+        <p><strong>Introduction:</strong></p>
+        <p>
+            Presenting the classic 2048 game, artistically crafted using Svelte for the front-end and powered by Rust Actix for the backend logic. This implementation showcases the seamless integration of frontend interactivity with robust backend game logic. As you play, observe the responsive and fluid UI, thanks to Svelte's reactive capabilities, complemented by the efficiency and speed of Rust Actix.
+        </p>
+
+        <h3>Key Features:</h3>
+        <ul>
+            <li><strong>Responsive UI</strong>: Designed with a modern and user-friendly interface, the game scales seamlessly across different devices, ensuring a smooth gaming experience.</li>
+            <li><strong>Touch & Mouse Interactivity</strong>: Whether you're swiping on your touch device or dragging with a mouse, the game intuitively responds to your gestures. The directional buttons provide an alternative input method.</li>
+            <li><strong>Dynamic Color Grading</strong>: Each tile is colored distinctively based on its value, providing an aesthetically pleasing visual cue as you progress in the game.</li>
+            <li><strong>Real-time Score Display</strong>: Keep track of your score, which is displayed prominently below the game board.</li>
+            <li><strong>Server-side Game Logic</strong>: Offloading the game logic to the Rust Actix backend ensures optimized performance, allowing the Svelte front-end to remain lightweight and focused on presentation.</li>
+        </ul>
+
+        <h3>How to Play:</h3>
+        <p>
+            Simply swipe or drag the tiles in your desired direction - left, right, up, or down. You can also use the provided buttons. Merge tiles with the same number to double their value. The goal? Create a tile with the value 2048. Happy gaming!
+        </p>
+
+        <div class="links">
+            <a href="https://github.com/Lowband21/rusty2048" target="_blank">View the Code</a>
+        </div>
+    </section>
+
 <div class="board" 
      on:mousedown={handleStart} 
      on:mouseup={handleEnd} 
@@ -169,3 +196,4 @@ button:disabled {
   <button on:click={() => performAction('MergeUp')} >Up</button>
   <button on:click={() => performAction('MergeDown')} >Down</button>
 </div>
+
