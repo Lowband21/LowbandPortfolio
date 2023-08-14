@@ -117,7 +117,7 @@
 
   <!-- Skills Section -->
   <div class="full-width-container skills-container">
-    <div class="full-width-container">
+    <div class="full-width-container skills-section-content">
       <div class="skills">
         {#each skills as skill (skill.id)}
           <div class="skill" animate:flip={{ duration: 500 }}>
@@ -140,13 +140,14 @@
     padding: 0;
     box-sizing: border-box;
   }
+
   .homepage {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 0em;
-    min-height: 100vh;
+    min-height: 100vw;
     transition: all 0.1s ease-in-out;
     position: relative;
     z-index: 1;
@@ -209,22 +210,28 @@
 
   .full-width-container {
     width: 100%;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
     display: flex;
     justify-content: center;
   }
 
   .welcome-container {
+    width: 80%;
     text-align: center;
     padding: 2em 0;
   }
 
   .bio-container {
     text-align: center;
+    width: 100%;
   }
 
   .skills-container {
     text-align: center;
     align-self: center;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
     width: 100%;
     border: 3px solid #000000;
   }
@@ -233,7 +240,6 @@
   .education-container {
     display: flex;
     justify-content: center;
-    padding: 2em;
   }
 
   .experience-container {
@@ -245,9 +251,14 @@
   }
 
   .section-content {
-    width: 80%;
+    width: 90%;
+    margin-bottom: 10px;
   }
   .skills-section-content {
     width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 </style>
