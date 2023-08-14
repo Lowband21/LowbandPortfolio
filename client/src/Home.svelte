@@ -133,6 +133,13 @@
 </div>
 
 <style>
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
   .homepage {
     display: flex;
     flex-direction: column;
@@ -217,6 +224,7 @@
 
   .skills-container {
     text-align: center;
+    align-self: center;
     width: 100%;
     border: 3px solid #000000;
   }
