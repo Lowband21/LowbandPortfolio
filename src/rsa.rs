@@ -226,9 +226,9 @@ use std::thread;
 // The 'main' function kicks off the whole process
 pub fn gen_keys() -> (PublicKey, PrivateKey, BigUint, BigUint, BigUint, u32) {
     let now_master = Instant::now(); // And another one to measure total time
-    let num_tries = 64; // Number of random numbers we generate and check for primality
+    let num_tries = 32; // Number of random numbers we generate and check for primality
     let num_bits = 1024; // The size of the numbers we're interested in
-    let num_iterations = 55; // Number of iterations in the Solovay-Strassen test
+    let num_iterations = 20; // Number of iterations in the Solovay-Strassen test
 
     // Find the first prime number 'p'
 
@@ -336,20 +336,21 @@ fn print_statistics(
     values_used: u32,
     iterations: u32,
 ) -> (BigUint, u32, f64) {
-    let confidence = 1.0 - 1.0 / (4.0f64.powi(iterations as i32));
+    let confidence: f64 = 1.0 - 1.0 / (4.0f64.powi(iterations as i32));
     (odd_nums_tried.clone(), values_used, confidence)
 }
 
 pub async fn generate_rsa_keys() -> HttpResponse {
     let (pub_key, priv_key, p, q, odd_nums_tried, values_used) = gen_keys();
     let (_odd_nums_tried, _values_used, confidence) =
-        print_statistics(&odd_nums_tried, values_used, 55); // 55 is the number of iterations, as in your code
+        print_statistics(&odd_nums_tried, values_used, 20); // 55 is the number of iterations, as in your code
+    println!("{}", confidence);
 
     HttpResponse::Ok().json(json!({
         "prime1": p.to_str_radix(10),
         "prime2": q.to_str_radix(10),
         "oddNumbersTried": odd_nums_tried.to_str_radix(10),
         "valuesUsed": values_used,
-        "confidence": confidence
+        "confidence": confidence,
     }))
 }

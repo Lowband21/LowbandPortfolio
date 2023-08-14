@@ -19,7 +19,7 @@
             prime2 = data.prime2;
             oddNumsTried = data.oddNumbersTried;
             valuesUsed = data.valuesUsed;
-            confidence = data.confidence.toFixed(10);
+            confidence = data.confidence.toFixed(15);
         } catch (error) {
             console.error("Failed to fetch prime numbers:", error);
         }
