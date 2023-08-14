@@ -28,54 +28,75 @@
 
 <div id="content">
     <h2>
-        Secure Messaging with RSA: A Deep Dive into Network Programming and
-        Algorithm Optimization
+        RSA Encryption: Marrying Advanced Mathematics with Network Programming
     </h2>
     <p>
-        The importance of secure communication in today's digital age cannot be
-        overstated. To contribute to this crucial field, I developed a secure
-        messaging system that employs RSA, a public-key cryptography protocol,
-        to protect the messages exchanged between a client and a server.
+        In an era where digital interactions are ubiquitous, the necessity for
+        secure communication mechanisms stands paramount. In addressing this
+        need, I architected a robust messaging system, leveraging the RSA
+        encryption protocol to solidify client-server interactions via
+        public-key cryptography.
     </p>
     <p>
-        A standout aspect of this <a
+        A pivotal feature of this <a
             href="https://github.com/Lowband21/rsa_rt_messager"
             target="_blank"
             rel="noopener noreferrer">project</a
-        > is the optimized generation of 2048-bit prime numbers. The prime numbers
-        form an integral part of the RSA encryption algorithm, and their efficient
-        generation significantly speeds up the key generation process. The system
-        is capable of generating these primes in an impressive timeframe of approximately
-        100 milliseconds on my local machine (slower on this website due to limited
-        cloud performance).
+        > is its adeptness in the generation of 2048-bit prime numbers. These large
+        primes are fundamental to RSA encryption, serving as the underpinnings of
+        both the public and private keys.
     </p>
     <p>
-        This level of optimization not only accelerates the process, but also
-        ensures the robustness of the encryption, providing a secure yet highly
-        responsive communication environment. It’s a delicate balance between
-        speed and security, and this project skillfully maintains it.
+        Delving deeper into the prime generation mechanism, the system employs a
+        two-fold process:
+    </p>
+    <ul>
+        <li>
+            <strong>Random Number Generation:</strong> We initiate by producing odd
+            random numbers of the desired bit-length. This ensures a higher probability
+            of encountering a prime, given that all even numbers, barring 2, are
+            non-prime.
+        </li>
+        <li>
+            <strong>Primality Testing:</strong> For each generated number, the Solovay-Strassen
+            primality test is executed, a probabilistic algorithm, to ascertain its
+            primality. This test is both efficient and scalable for large numbers,
+            making it apt for RSA key generation.
+        </li>
+    </ul>
+    <p>
+        The system's multithreading capability further amplifies its efficiency.
+        Prime number candidates are generated and tested in parallel, maximizing
+        CPU utilization and significantly trimming down the overall prime
+        discovery time. Notably, a unique feature has been implemented to avoid
+        the unlikely, yet possible scenario where the two primes generated are
+        identical. In such cases, the system regenerates one of the primes to
+        ensure uniqueness.
     </p>
     <p>
-        The successful execution of this project demonstrates a deep
-        understanding of the RSA protocol, prime number theory, and algorithmic
-        optimization. It also showcases how these principles can be applied in
-        real-world network programming. By striking a balance between robust
-        security measures and efficient performance, this project contributes
-        towards shaping a safer and faster digital communication landscape. The
-        lessons learned from this endeavor continue to inform and influence my
-        approach to security, efficiency, and overall excellence in software
-        development.
+        While the system is optimized for speed, there's no compromise on
+        security. Through multiple iterations of the Solovay-Strassen test, a
+        high degree of confidence in the primality of the numbers is achieved,
+        striking a harmonious balance between computational efficiency and
+        cryptographic robustness.
     </p>
-    <p>Generated prime numbers (took {loadingTime}ms to generate):</p>
+    <p>
+        This venture is not just about building an encryption system. It's about
+        masterfully weaving advanced mathematical constructs into real-world
+        software, demonstrating the symbiosis between theory and application.
+        It's a testament to the potential of combining mathematical rigor,
+        algorithmic precision, and software engineering prowess.
+    </p>
+    <p>Prime numbers generated in {loadingTime}ms:</p>
     <ul>
         <li>Prime 1: {prime1}</li>
         <li>Prime 2: {prime2}</li>
     </ul>
-    <p>Statistics:</p>
+    <p>Prime Generation Metrics:</p>
     <ul>
-        <li>Odd random numbers tried: {oddNumsTried}</li>
-        <li>Values used to verify each prime: {valuesUsed}</li>
-        <li>Confidence that each number is prime: {confidence}</li>
+        <li>Odd random numbers evaluated: {oddNumsTried}</li>
+        <li>Verification iterations per prime: {valuesUsed}</li>
+        <li>Statistical confidence in prime validity: {confidence}</li>
     </ul>
 </div>
 
