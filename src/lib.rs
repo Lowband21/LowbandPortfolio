@@ -1,18 +1,18 @@
+use actix_session::{storage::RedisSessionStore, SessionMiddleware};
+use actix_web::cookie::Key;
+use actix_web::dev::Server;
 use actix_web::middleware::Logger;
 use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer};
 use diesel::r2d2::{ConnectionManager, Pool};
 use diesel::PgConnection;
 use dotenv::dotenv;
 use std::env;
-use actix_session::{storage::RedisSessionStore, SessionMiddleware};
-use actix_web::cookie::Key;
-use actix_web::dev::Server;
 
 mod db;
+mod game;
 mod models;
 mod routes;
 mod schema;
-mod game;
 mod twentyfortyeight;
 
 use crate::twentyfortyeight::*;
@@ -57,7 +57,7 @@ pub fn run(redis_store: RedisSessionStore) -> std::io::Result<Server> {
                     .route("/new", web::post().to(new_game))
                     .route("/move", web::post().to(make_move))
                     .route("/undo", web::post().to(undo))
-                    .route("/reset", web::post().to(reset))
+                    .route("/reset", web::post().to(reset)),
             )
             .service(actix_files::Files::new("/", "./client/public").index_file("index.html"))
             .default_service(web::route().to(move |req: HttpRequest| {
@@ -81,4 +81,3 @@ pub fn run(redis_store: RedisSessionStore) -> std::io::Result<Server> {
     .run();
     Ok(server)
 }
-

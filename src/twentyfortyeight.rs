@@ -24,7 +24,10 @@ pub async fn new_game(session: Session) -> Result<HttpResponse, Error> {
 }
 
 pub async fn make_move(data: web::Json<MoveInfo>, session: Session) -> Result<HttpResponse, Error> {
-    let mut game: Game = session.get("game_state").unwrap().unwrap();
+    let mut game: Game = session
+        .get("game_state")
+        .unwrap_or(Some(Game::new()))
+        .unwrap_or(Game::new());
 
     let result = game.action(&data.action);
     session.insert("game_state", game.clone())?;
@@ -58,4 +61,3 @@ pub async fn reset(session: Session) -> Result<HttpResponse, Error> {
         score: game.score,
     }))
 }
-
