@@ -33,7 +33,7 @@
         if (response) {
             messages = [...messages, { text: response, user: false }];
         } else {
-            console.error("Error occurred while getting GPT-3 response. Error: ", error);
+            console.error("Error occurred while getting GPT response. Error: ", error);
         }
     }
 </script>

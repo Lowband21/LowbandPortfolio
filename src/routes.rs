@@ -1,4 +1,4 @@
-use actix_web::{web, Error as ActixError, HttpResponse};
+use actix_web::{web, Error as ActixError, HttpResponse, Responder};
 
 use serde_derive::Deserialize;
 
@@ -20,6 +20,10 @@ pub struct ChatData {
 pub struct ChatMessage {
     pub text: String,
     pub user: bool,
+}
+
+pub async fn health_check() -> impl Responder {
+    HttpResponse::Ok()
 }
 
 pub async fn get_projects(pool: web::Data<DbPool>) -> Result<HttpResponse, ActixError> {
@@ -133,3 +137,4 @@ pub async fn chat(
         }
     }
 }
+

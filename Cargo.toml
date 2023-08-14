@@ -3,7 +3,19 @@ name = "lowband_portfolio"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+# We could use any path here, but we are following the community convention
+# We could specify a library name using the `name` field. If unspecified,
+# cargo will default to `package.name`, which is what we want.
+path = "src/lib.rs"
+
+# Notice the double square brackets: it's an array in TOML's syntax.
+# We can only have one library in a project, but we can have multiple binaries!
+# If you want to manage multiple libraries in the same repository
+# have a look at the workspace feature - we'll cover it later on.
+[[bin]]
+path = "src/main.rs"
+name = "lowband_portfolio"
 
 [dependencies]
 actix-files = "0.6.2"
@@ -21,3 +33,6 @@ serde = "1.0.181"
 serde_derive = "1.0.181"
 sqlx = { version = "0.7.1", features = ["postgres", "runtime-tokio", "sqlite"]}
 tokio = { version = "1.29.1", features = ["full"]}
+
+[dev-dependencies]
+reqwest = "0.11"

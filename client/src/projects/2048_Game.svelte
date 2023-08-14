@@ -100,7 +100,7 @@
               const currValue = board[Math.floor(i / 4)][i % 4];
               
               if (currValue && currValue === 2 * prevValue) { // Check if cell merged
-                  cell.style.animation = "mergeEffect 0.2s";
+                  cell.style.animation = "mergeEffect 0.5s";
               }
           }
       }
