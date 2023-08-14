@@ -14,10 +14,10 @@ pub mod oxydized2048 {
 
     #[derive(PartialEq, Eq, Hash, Clone, Debug, Serialize, Deserialize)]
     pub enum Action {
-        MergeLeft,
-        MergeRight,
-        MergeUp,
-        MergeDown,
+        Left,
+        Right,
+        Up,
+        Down,
     }
 
     #[derive(PartialEq, Eq, Hash, Clone, Debug, Serialize, Deserialize)]
@@ -35,7 +35,7 @@ pub mod oxydized2048 {
                 score: 0,
                 prev_score: 0,
                 merged_last: 0,
-                last_action: Action::MergeDown,
+                last_action: Action::Down,
             };
             game.place_next();
             game
@@ -50,10 +50,10 @@ pub mod oxydized2048 {
             self.prev_score = self.calc_score();
             self.last_action = action.clone();
             match action {
-                Action::MergeLeft => self.merge_left(),
-                Action::MergeRight => self.merge_right(),
-                Action::MergeUp => self.merge_up(),
-                Action::MergeDown => self.merge_down(),
+                Action::Left => self.merge_left(),
+                Action::Right => self.merge_right(),
+                Action::Up => self.merge_up(),
+                Action::Down => self.merge_down(),
             }
             if self.board == original {
                 if self.is_gameover() {
@@ -174,11 +174,11 @@ pub mod oxydized2048 {
             let board = self.board;
             let mut new_board = [[0; 4]; 4];
             // outer for loop to traverse rows
-            for i in 0..new_board.len() {
+            for i in board.iter().enumerate().take(new_board.len()) {
                 // inner for loop to traverse column
                 for j in 0..new_board[0].len() {
                     // insert arr[row][col] to transpose[col][row]
-                    new_board[j][i] = board[i][j];
+                    new_board[j][i.0] = board[i.0][j];
                 }
             }
             self.board = new_board;
@@ -212,15 +212,11 @@ pub mod oxydized2048 {
             let mut y_prev: usize = 0;
             for (i, (x, y)) in maxes.iter().enumerate() {
                 if i > 0 {
-                    if x > &0 {
-                        if x - 1 == x_prev || x + 1 == x_prev && *y == y_prev {
-                            score += max * 10;
-                        }
+                    if x > &0 && (x - 1 == x_prev || x + 1 == x_prev && *y == y_prev) {
+                        score += max * 10;
                     }
-                    if y > &0 {
-                        if y - 1 == y_prev || y + 1 == y_prev && *x == x_prev {
-                            score += max * 10;
-                        }
+                    if y > &0 && (y - 1 == y_prev || y + 1 == y_prev && *x == x_prev) {
+                        score += max * 10;
                     }
                 }
 
@@ -241,15 +237,11 @@ pub mod oxydized2048 {
             if maxes.len() == 1 && second_maxes.len() > 1 {
                 for (i, (x, y)) in second_maxes.iter().enumerate() {
                     if i > 0 {
-                        if x > &0 {
-                            if x - 1 == x_prev || x + 1 == x_prev && *y == y_prev {
-                                score += (max / 2) * 10;
-                            }
+                        if x > &0 && (x - 1 == x_prev || x + 1 == x_prev && *y == y_prev) {
+                            score += (max / 2) * 10;
                         }
-                        if y > &0 {
-                            if y - 1 == y_prev || y + 1 == y_prev && *x == x_prev {
-                                score += (max / 2) * 10;
-                            }
+                        if y > &0 && (y - 1 == y_prev || y + 1 == y_prev && *x == x_prev) {
+                            score += (max / 2) * 10;
                         }
                     }
                     x_prev = *x;
@@ -270,7 +262,7 @@ pub mod oxydized2048 {
                     }
                 }
             }*/
-            if self.last_action == Action::MergeDown || self.last_action == Action::MergeRight {
+            if self.last_action == Action::Down || self.last_action == Action::Right {
                 (max * 10) + score * 2 + self.merged_last
             } else {
                 (max * 10) + score + self.merged_last
@@ -328,25 +320,25 @@ pub mod oxydized2048 {
             let mut valid: Vec<Action> = Vec::new();
             new.merge_up();
             if self.board != new.board {
-                valid.push(Action::MergeUp);
+                valid.push(Action::Up);
             }
 
             new.board = self.board;
             new.merge_down();
             if self.board != new.board {
-                valid.push(Action::MergeDown);
+                valid.push(Action::Down);
             }
 
             new.board = self.board;
             new.merge_right();
             if self.board != new.board {
-                valid.push(Action::MergeRight);
+                valid.push(Action::Right);
             }
 
             new.board = self.board;
             new.merge_left();
             if self.board != new.board {
-                valid.push(Action::MergeLeft);
+                valid.push(Action::Left);
             }
             valid
         }
