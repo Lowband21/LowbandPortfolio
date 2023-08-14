@@ -31,15 +31,19 @@ pub async fn make_move(data: web::Json<MoveInfo>, session: Session) -> Result<Ht
 
     let result = game.action(&data.action);
     session.insert("game_state", game.clone())?;
+    println!("In Here");
     match result {
         GameState::Ok | GameState::Gameover => Ok(HttpResponse::Ok().json(Update {
             board: game.board,
             score: game.score,
         })),
-        GameState::InvalidMove => Ok(HttpResponse::BadRequest().json(Update {
-            board: game.board,
-            score: game.score,
-        })),
+        GameState::InvalidMove => {
+            println!("Invalid move");
+            Ok(HttpResponse::BadRequest().json(Update {
+                board: game.board,
+                score: game.score,
+            }))
+        }
     }
 }
 

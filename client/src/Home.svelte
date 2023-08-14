@@ -10,7 +10,6 @@
   let skills = [];
   let bio = "";
 
-
   // Your elevator pitch details
   let uniqueTrait = "innovative problem solver";
   let expertise = "systems design and optimization";
@@ -19,7 +18,6 @@
   function getSkillURL(skillId) {
     return `/skills/${skillId}`;
   }
-
 
   onMount(async () => {
     try {
@@ -61,7 +59,8 @@
         <strong>Generative AI Research Assistant</strong> (Apr 2023 - Present,
         Hybrid)<br />
         Project leader and researcher for professor Stephen Hutt working on <Link
-          to={"/projects/13"}>quiz generation</Link
+          to={"https://www.lowband.app/project/Quiz_Generation"}
+          >quiz generation</Link
         ><br />
         <strong>Teaching Assistant</strong> (Mar 2023 - Jun 2023, Remote)<br />
         Assisted and graded multiple graduate level data science classes.<br />
@@ -118,7 +117,7 @@
 
   <!-- Skills Section -->
   <div class="full-width-container skills-container">
-    <div class="full-width-container ">
+    <div class="full-width-container">
       <div class="skills">
         {#each skills as skill (skill.id)}
           <div class="skill" animate:flip={{ duration: 500 }}>
@@ -243,6 +242,4 @@
   .skills-section-content {
     width: 100%;
   }
-  
 </style>
-

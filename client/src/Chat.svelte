@@ -1,5 +1,5 @@
 <script>
-    import { onMount } from 'svelte';
+    import { onMount } from "svelte";
     let messages = [];
     let input = "";
     let error = "";
@@ -9,7 +9,7 @@
             let response = await fetch("/api/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(chatData)
+                body: JSON.stringify(chatData),
             });
 
             if (!response.ok) {
@@ -33,12 +33,15 @@
         if (response) {
             messages = [...messages, { text: response, user: false }];
         } else {
-            console.error("Error occurred while getting GPT response. Error: ", error);
+            console.error(
+                "Error occurred while getting GPT response. Error: ",
+                error
+            );
         }
     }
 </script>
 
-<h2> Chat with my personal assistant! </h2>
+<h2>Chat with my personal assistant!</h2>
 <div id="chat-window">
     {#each messages as message (message)}
         <div class={message.user ? "user-message" : "gpt-message"}>
@@ -46,8 +49,8 @@
         </div>
     {/each}
 </div>
-<form on:submit|preventDefault={addMessage} class=prompt>
-    <input bind:value={input} placeholder="Type a message...">
+<form on:submit|preventDefault={addMessage} class="prompt">
+    <input bind:value={input} placeholder="Type a message..." />
     <button type="submit">Send</button>
 </form>
 
@@ -72,18 +75,19 @@
         align-items: center;
         justify-content: center;
     }
-    
-    .user-message, .gpt-message {
+
+    .user-message,
+    .gpt-message {
         margin: 5px;
         padding: 10px;
         border-radius: 5px;
     }
-    
+
     .user-message {
         background-color: #a8dadc;
         align-self: flex-end;
     }
-    
+
     .gpt-message {
         background-color: #f1faee;
     }
@@ -91,3 +95,4 @@
         text-align: center;
     }
 </style>
+
