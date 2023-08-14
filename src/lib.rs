@@ -2,14 +2,12 @@ use actix_session::{storage::RedisSessionStore, SessionMiddleware};
 use actix_web::cookie::Key;
 use actix_web::dev::Server;
 use actix_web::middleware::Logger;
-use actix_web::rt::time::Timeout;
 use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer};
 use diesel::r2d2::{ConnectionManager, Pool};
 use diesel::PgConnection;
 use dotenv::dotenv;
 use std::env;
 use std::time::Duration;
-use tokio::time;
 
 mod db;
 mod game;
