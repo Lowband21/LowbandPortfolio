@@ -33,6 +33,14 @@ serde = {version = "^1.0.181", features = ["derive"]}
 serde_derive = "^1.0.181"
 sqlx = { version = "0.7.1", features = ["postgres", "runtime-tokio", "sqlite"]}
 tokio = { version = "1.29.1", features = ["full"]}
+# For rsa:
+serde_json = "1.0.96"
+num-bigint = {version = "0.4.3", features = ["rand"]}
+num-integer = "0.1.45"
+num-traits = "0.2.15"
+rayon = "1.7.0"
+
+
 
 [dev-dependencies]
 reqwest = "0.11"

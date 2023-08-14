@@ -12,12 +12,13 @@ mod db;
 mod game;
 mod models;
 mod routes;
+mod rsa;
 mod schema;
 mod twentyfortyeight;
 
-use crate::twentyfortyeight::*;
-
 use crate::routes::*;
+use crate::rsa::*;
+use crate::twentyfortyeight::*;
 
 type DbPool = Pool<ConnectionManager<PgConnection>>;
 
@@ -45,6 +46,7 @@ pub fn run(redis_store: RedisSessionStore) -> std::io::Result<Server> {
             ))
             .app_data(web::Data::new(pool.clone()))
             .route("/health_check", web::get().to(health_check))
+            .route("/generate_keys", web::get().to(generate_rsa_keys))
             .service(
                 web::scope("/api")
                     .route("/getProjects", web::get().to(get_projects))
