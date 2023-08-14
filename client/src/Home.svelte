@@ -186,12 +186,12 @@
   }
 
   .skills {
-    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 2em;
     background-color: #333333;
+    width: 100%;
   }
 
   .skill {
@@ -212,10 +212,6 @@
     width: 100%;
     margin-bottom: 0px;
     padding-bottom: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
     display: flex;
     justify-content: center;
   }
@@ -264,7 +260,5 @@
     padding-bottom: 0;
     margin-top: 0;
     margin-bottom: 0;
-    margin: 0;
-    padding: 0;
   }
 </style>
