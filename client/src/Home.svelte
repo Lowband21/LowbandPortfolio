@@ -6,13 +6,8 @@
   import Particles from "svelte-particles";
 
   let name = "Lowband";
-  let projects = [];
   let skills = [];
   let bio = "";
-
-  // Your elevator pitch details
-  let uniqueTrait = "innovative problem solver";
-  let expertise = "systems design and optimization";
 
   // Function to generate the project page URL
   function getSkillURL(skillId) {
@@ -58,7 +53,7 @@
       <p>
         <strong>Generative AI Research Assistant</strong> (Apr 2023 - Present,
         Hybrid)<br />
-        Project leader and researcher for professor Stephen Hutt working on <Link
+        Research assistant for professor Stephen Hutt working on <Link
           to={"/project/Quiz_Generation"}>quiz generation</Link
         ><br />
         <strong>Teaching Assistant</strong> (Mar 2023 - Jun 2023, Remote)<br />
@@ -115,8 +110,8 @@
   </div>
 
   <!-- Skills Section -->
-  <div class="full-width-container skills-container">
-    <div class="full-width-container skills-section-content">
+  <div class="skills-container">
+    <div class="skills-section-content">
       <div class="skills">
         {#each skills as skill (skill.id)}
           <div class="skill" animate:flip={{ duration: 500 }}>
@@ -145,52 +140,54 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 0em;
     min-height: 100vw;
     transition: all 0.1s ease-in-out;
     position: relative;
     z-index: 1;
   }
 
-  .text-block {
-    background-color: #333333;
-    border: 3px solid #000000;
-    padding: 20px; /* Add some padding so that the background extends beyond just the text */
+  .text-block,
+  .skills {
+    background-color: #333;
+    padding: 20px;
     border-radius: 20px;
     opacity: 90%;
   }
 
-  h1 {
+  .text-block {
+    border: 3px solid #000;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
     font-size: 3em;
-    color: #000000;
+    color: #fff;
+    margin-bottom: 1em;
+  }
+
+  h1 {
+    color: #000;
   }
 
   h2 {
+    text-align: center;
     font-size: 3em;
-    margin-bottom: 1em auto;
-    color: #ffffff;
-    text-justify: center;
-    justify-content: center;
-    justify-self: center;
   }
 
   h3 {
     font-size: 2em;
-    margin-bottom: 1em;
-    color: #ffffff;
   }
 
   p {
     font-size: 1.5em;
-    color: #ffffff;
   }
 
   .skills {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 2em;
-    background-color: #333333;
     width: 100%;
   }
 
@@ -200,7 +197,7 @@
     padding: 0.5em;
     transition: all 0.3s ease-in-out;
     color: #333;
-    background-color: #ffffff;
+    background-color: #fff;
   }
 
   .skill:hover {
@@ -208,32 +205,24 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
 
-  .full-width-container {
+  .full-width-container,
+  .section-content {
+    padding: 2em;
+    max-width: 1200px;
     width: 100%;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    display: flex;
-    justify-content: center;
+    margin: 0 auto;
   }
 
-  .welcome-container {
+  .welcome-container,
+  .bio-container {
     width: 80%;
     text-align: center;
-    padding: 2em 0;
-  }
-
-  .bio-container {
-    text-align: center;
-    width: 100%;
   }
 
   .skills-container {
+    width: 100%;
     text-align: center;
     align-self: center;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    width: 100%;
-    border: 3px solid #000000;
   }
 
   .experience-container,
@@ -248,17 +237,5 @@
 
   .education-container {
     text-align: right;
-  }
-
-  .section-content {
-    width: 90%;
-    margin-bottom: 10px;
-  }
-  .skills-section-content {
-    width: 100%;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-top: 0;
-    margin-bottom: 0;
   }
 </style>
