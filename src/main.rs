@@ -24,7 +24,7 @@ async fn main() -> std::io::Result<()> {
 
     let port = env::var("PORT").unwrap_or_else(|_| "5000".to_string());
     let listener =
-        TcpListener::bind(&format!("127.0.0.1:{}", port)).expect("Failed to bind random port");
+        TcpListener::bind(format!("127.0.0.1:{}", port)).expect("Failed to bind random port");
 
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
 
