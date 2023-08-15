@@ -47,19 +47,18 @@ pub async fn get_projects(pool: web::Data<DbPool>) -> Result<HttpResponse, Actix
 }
 
 pub async fn get_skills(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> {
-    let mut conn = pool.get().expect("Failed to get DB connection from pool");
-
-    let skills = web::block(move || crate::db::get_all_skills(&mut conn)).await;
+    let skills = {
+        let mut conn = pool.get().expect("Failed to get DB connection from pool");
+        web::block(move || crate::db::get_all_skills(&mut conn)).await
+    };
 
     match skills {
         Ok(Ok(skills)) => Ok(HttpResponse::Ok().json(skills)),
         Ok(Err(e)) => {
-            // Handle the case when there was an error in the inner Result
             println!("{:?}", e);
             Ok(HttpResponse::InternalServerError().finish())
         }
         Err(e) => {
-            // Handle the case when there was an error in the outer Result
             println!("{:?}", e);
             Ok(HttpResponse::InternalServerError().finish())
         }
@@ -67,19 +66,18 @@ pub async fn get_skills(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> 
 }
 
 pub async fn get_bio(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> {
-    let mut conn = pool.get().expect("Failed to get DB connection from pool");
-
-    let bio = web::block(move || crate::db::get_all_bio(&mut conn)).await;
+    let bio = {
+        let mut conn = pool.get().expect("Failed to get DB connection from pool");
+        web::block(move || crate::db::get_all_bio(&mut conn)).await
+    };
 
     match bio {
         Ok(Ok(bio)) => Ok(HttpResponse::Ok().json(bio)),
         Ok(Err(e)) => {
-            // Handle the case when there was an error in the inner Result
             println!("{:?}", e);
             Ok(HttpResponse::InternalServerError().finish())
         }
         Err(e) => {
-            // Handle the case when there was an error in the outer Result
             println!("{:?}", e);
             Ok(HttpResponse::InternalServerError().finish())
         }

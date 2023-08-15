@@ -20,15 +20,19 @@ mod twentyfortyeight;
 use crate::routes::*;
 use crate::rsa::*;
 use crate::twentyfortyeight::*;
+use std::net::TcpListener;
 
 type DbPool = Pool<ConnectionManager<PgConnection>>;
 
-pub fn run(redis_store: RedisSessionStore) -> std::io::Result<Server> {
+pub fn run(
+    redis_store: RedisSessionStore,
+    listener: TcpListener,
+    pool: DbPool,
+) -> std::io::Result<Server> {
     println!("Here");
     dotenv().ok();
 
     std::env::set_var("RUST_LOG", "actix_web=info");
-    env_logger::init();
 
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
 
@@ -77,11 +81,12 @@ pub fn run(redis_store: RedisSessionStore) -> std::io::Result<Server> {
                 }
             }))
     })
-    .bind(format!(
-        "0.0.0.0:{}",
-        env::var("PORT").unwrap_or_else(|_| "5000".to_string())
-    ))?
+    .listen(listener)?
     .client_request_timeout(Duration::new(5 * 60, 0))
     .run();
     Ok(server)
 }
+//.bind(format!(
+//    "0.0.0.0:{}",
+//    env::var("PORT").unwrap_or_else(|_| "5000".to_string())
+//))?

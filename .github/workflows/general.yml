@@ -9,11 +9,26 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: tester
+          POSTGRES_PASSWORD: simplepass
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - name: Run tests
+        env: 
+          DATABASE_HOST: tester
+          DATABASE_USER: lowband
+          DATABASE_PASSWORD: simplepass
+          DATABASE_DB: test_db
         run: cargo test
 
   fmt:

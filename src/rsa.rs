@@ -1,15 +1,13 @@
-use actix_web::{web, App, HttpResponse, HttpServer};
+use actix_web::HttpResponse;
 use num_bigint::{BigInt, BigUint, RandBigInt, Sign::Plus, ToBigUint};
 use num_traits::{One, ToPrimitive, Zero};
-use std::time::Instant;
-//extern crate rayon;
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
-//use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use serde_json::*;
 use std::fs::File;
 use std::io::Write;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{mpsc::channel, Arc};
+use std::time::Instant;
 
 fn store_keys_in_files(pub_key: &PublicKey, priv_key: &PrivateKey) {
     let mut file = File::create("public_key.txt").unwrap();
@@ -45,14 +43,14 @@ impl PublicKey {
         BigUint::parse_bytes(self.e.as_bytes(), 10).unwrap()
     }
 
-    pub fn n(&self) -> BigUint {
+    pub fn _n(&self) -> BigUint {
         BigUint::parse_bytes(self.n.as_bytes(), 10).unwrap()
     }
-    pub fn to_bytes(&self) -> Result<Vec<u8>> {
+    pub fn _to_bytes(&self) -> Result<Vec<u8>> {
         serde_json::to_vec(self).map_err(Error::from)
     }
 
-    pub fn from_bytes(bytes: &[u8]) -> Result<PublicKey> {
+    pub fn _from_bytes(bytes: &[u8]) -> Result<PublicKey> {
         // Filter out zero bytes
         let trimmed: Vec<u8> = bytes.iter().cloned().filter(|&x| x != 0).collect();
 
@@ -69,18 +67,18 @@ impl PrivateKey {
         }
     }
 
-    pub fn d(&self) -> BigUint {
+    pub fn _d(&self) -> BigUint {
         BigUint::parse_bytes(self.d.as_bytes(), 10).unwrap()
     }
 
-    pub fn n(&self) -> BigUint {
+    pub fn _n(&self) -> BigUint {
         BigUint::parse_bytes(self.n.as_bytes(), 10).unwrap()
     }
-    pub fn to_bytes(&self) -> Result<Vec<u8>> {
+    pub fn _to_bytes(&self) -> Result<Vec<u8>> {
         serde_json::to_vec(self).map_err(Error::from)
     }
 
-    pub fn from_bytes(bytes: &[u8]) -> Result<PrivateKey> {
+    pub fn _from_bytes(bytes: &[u8]) -> Result<PrivateKey> {
         // Filter out zero bytes
         let trimmed: Vec<u8> = bytes.iter().cloned().filter(|&x| x != 0).collect();
 
@@ -133,7 +131,7 @@ fn generate_odd_random_number(bits: u32) -> BigUint {
     if num.clone() % 2u128 == BigUint::from(0u128) {
         num += BigUint::from(1u128);
     }
-    BigUint::from(num)
+    num
 }
 
 // Jacobi symbol is a mathematical function used in primality testing
@@ -174,7 +172,7 @@ pub fn mod_exp(mut base: BigUint, mut exponent: BigUint, modulus: BigUint) -> Bi
     } else {
         One::one()
     };
-    base = base % modulus.clone();
+    base %= modulus.clone();
 
     // Keep squaring the base and reducing the exponent until the exponent becomes zero
     while !exponent.is_zero() {
@@ -206,7 +204,7 @@ fn solovay_strassen(n: &BigUint, iterations: u32) -> bool {
         let expected_result = if x == -1 {
             n_minus_one.clone() // If Jacobi symbol is -1, we expect n-1 in the next check
         } else {
-            BigUint::from(x.abs() as u64) // Otherwise we expect the absolute value of the Jacobi symbol
+            BigUint::from(x.unsigned_abs() as u64) // Otherwise we expect the absolute value of the Jacobi symbol
         };
 
         // If Jacobi symbol is 0, or a^(n-1)/2 is not congruent to Jacobi symbol mod n,
@@ -232,15 +230,9 @@ pub fn gen_keys() -> (PublicKey, PrivateKey, BigUint, BigUint, BigUint, u32) {
 
     // Find the first prime number 'p'
 
-    let p_thread = thread::spawn(move || {
-        let p = find_prime(num_tries, num_bits, num_iterations, None);
-        p
-    });
+    let p_thread = thread::spawn(move || find_prime(num_tries, num_bits, num_iterations, None));
 
-    let q_thread = thread::spawn(move || {
-        let q = find_prime(num_tries, num_bits, num_iterations, None);
-        q
-    });
+    let q_thread = thread::spawn(move || find_prime(num_tries, num_bits, num_iterations, None));
 
     let (mut p, mut odd_nums_tried_p, mut values_used_p) = p_thread.join().unwrap();
     let (mut q, mut odd_nums_tried_q, mut values_used_q) = q_thread.join().unwrap();
@@ -341,7 +333,7 @@ fn print_statistics(
 }
 
 pub async fn generate_rsa_keys() -> HttpResponse {
-    let (pub_key, priv_key, p, q, odd_nums_tried, values_used) = gen_keys();
+    let (_pub_key, _priv_key, p, q, odd_nums_tried, values_used) = gen_keys();
     let (_odd_nums_tried, _values_used, confidence) =
         print_statistics(&odd_nums_tried, values_used, 20); // 55 is the number of iterations, as in your code
     println!("{}", confidence);

@@ -192,6 +192,7 @@
     padding: 2em;
     background-color: #333333;
     width: 100%;
+    margin: 0;
   }
 
   .skill {
