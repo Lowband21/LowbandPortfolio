@@ -6,7 +6,6 @@ use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer};
 use diesel::r2d2::{ConnectionManager, Pool};
 use diesel::PgConnection;
 use dotenv::dotenv;
-use std::env;
 use std::time::Duration;
 
 mod db;
@@ -34,12 +33,6 @@ pub fn run(
 
     std::env::set_var("RUST_LOG", "actix_web=info");
 
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-
-    let manager = ConnectionManager::<PgConnection>::new(database_url);
-    let pool: DbPool = Pool::builder()
-        .build(manager)
-        .expect("Failed to create pool.");
     let secret_key = Key::generate();
 
     let server = HttpServer::new(move || {
@@ -86,7 +79,3 @@ pub fn run(
     .run();
     Ok(server)
 }
-//.bind(format!(
-//    "0.0.0.0:{}",
-//    env::var("PORT").unwrap_or_else(|_| "5000".to_string())
-//))?

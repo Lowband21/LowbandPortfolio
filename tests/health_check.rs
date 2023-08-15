@@ -1,5 +1,4 @@
 use actix_session::storage::RedisSessionStore;
-use redis::Commands;
 use std::process::Command;
 
 #[tokio::test]
