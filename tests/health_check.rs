@@ -124,7 +124,7 @@ async fn spawn_app() -> String {
     };
 
     // Wait a little for the Redis server to start
-    tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
+    tokio::time::sleep(tokio::time::Duration::from_secs(5)).await;
 
     let redis_store = RedisSessionStore::new(&redis_connection_string)
         .await
