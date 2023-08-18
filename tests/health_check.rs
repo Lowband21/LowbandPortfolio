@@ -3,7 +3,7 @@ use actix_session::storage::RedisSessionStore;
 #[tokio::test]
 async fn health_check_works() {
     // Arrange
-    spawn_app().await;
+    //spawn_app().await;
     // We need to bring in `reqwest`
     // to perform HTTP requests against our application.
     let client = reqwest::Client::new();
@@ -16,6 +16,30 @@ async fn health_check_works() {
     // Assert
     assert!(response.status().is_success());
     assert_eq!(Some(0), response.content_length());
+}
+
+#[tokio::test]
+async fn fractal_works() {
+    // Arrange
+    //spawn_app().await;
+    // We need to bring in `reqwest`
+    // to perform HTTP requests against our application.
+    let client = reqwest::Client::new();
+    // Act
+    let response = client
+        .get("http://127.0.0.1:5000/fractal?x=0&y=0&zoom=1")
+        .send()
+        .await
+        .expect("Failed to execute request.");
+    // Assert
+    assert!(response.status().is_success());
+    let resp_body: serde_json::Value = response
+        .json()
+        .await
+        .expect("Failed to parse response body.");
+    assert!(resp_body.get("pixels").is_some());
+    assert_eq!(resp_body["width"].as_u64().unwrap(), 800);
+    assert_eq!(resp_body["height"].as_u64().unwrap(), 600);
 }
 
 async fn spawn_app() {

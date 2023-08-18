@@ -45,14 +45,14 @@ impl PublicKey {
         BigUint::parse_bytes(self.e.as_bytes(), 10).unwrap()
     }
 
-    pub fn n(&self) -> BigUint {
+    pub fn _n(&self) -> BigUint {
         BigUint::parse_bytes(self.n.as_bytes(), 10).unwrap()
     }
-    pub fn to_bytes(&self) -> Result<Vec<u8>> {
+    pub fn _to_bytes(&self) -> Result<Vec<u8>> {
         serde_json::to_vec(self).map_err(Error::from)
     }
 
-    pub fn from_bytes(bytes: &[u8]) -> Result<PublicKey> {
+    pub fn _from_bytes(bytes: &[u8]) -> Result<PublicKey> {
         // Filter out zero bytes
         let trimmed: Vec<u8> = bytes.iter().cloned().filter(|&x| x != 0).collect();
 
@@ -69,18 +69,18 @@ impl PrivateKey {
         }
     }
 
-    pub fn d(&self) -> BigUint {
+    pub fn _d(&self) -> BigUint {
         BigUint::parse_bytes(self.d.as_bytes(), 10).unwrap()
     }
 
-    pub fn n(&self) -> BigUint {
+    pub fn _n(&self) -> BigUint {
         BigUint::parse_bytes(self.n.as_bytes(), 10).unwrap()
     }
-    pub fn to_bytes(&self) -> Result<Vec<u8>> {
+    pub fn _to_bytes(&self) -> Result<Vec<u8>> {
         serde_json::to_vec(self).map_err(Error::from)
     }
 
-    pub fn from_bytes(bytes: &[u8]) -> Result<PrivateKey> {
+    pub fn _from_bytes(bytes: &[u8]) -> Result<PrivateKey> {
         // Filter out zero bytes
         let trimmed: Vec<u8> = bytes.iter().cloned().filter(|&x| x != 0).collect();
 
@@ -341,7 +341,7 @@ fn print_statistics(
 }
 
 pub async fn generate_rsa_keys() -> HttpResponse {
-    let (pub_key, priv_key, p, q, odd_nums_tried, values_used) = gen_keys();
+    let (_pub_key, _priv_key, p, q, odd_nums_tried, values_used) = gen_keys();
     let (_odd_nums_tried, _values_used, confidence) =
         print_statistics(&odd_nums_tried, values_used, 20); // 55 is the number of iterations, as in your code
     println!("{}", confidence);

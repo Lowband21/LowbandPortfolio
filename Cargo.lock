@@ -1660,6 +1660,8 @@ dependencies = [
  "env_logger",
  "fast-math",
  "lazy_static",
+ "mime 0.3.17",
+ "mime_guess 2.0.4",
  "num-bigint",
  "num-integer",
  "num-traits",

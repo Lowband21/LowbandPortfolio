@@ -10,6 +10,7 @@ use std::env;
 use std::time::Duration;
 
 mod db;
+mod fractal;
 mod game;
 mod models;
 mod routes;
@@ -17,6 +18,7 @@ mod rsa;
 mod schema;
 mod twentyfortyeight;
 
+use crate::fractal::*;
 use crate::routes::*;
 use crate::rsa::*;
 use crate::twentyfortyeight::*;
@@ -28,7 +30,7 @@ pub fn run(redis_store: RedisSessionStore) -> std::io::Result<Server> {
     dotenv().ok();
 
     std::env::set_var("RUST_LOG", "actix_web=info");
-    env_logger::init();
+    //env_logger::init();
 
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
 
@@ -48,6 +50,7 @@ pub fn run(redis_store: RedisSessionStore) -> std::io::Result<Server> {
             .app_data(web::Data::new(pool.clone()))
             .route("/health_check", web::get().to(health_check))
             .route("/generate_keys", web::get().to(generate_rsa_keys))
+            .route("/fractal", web::get().to(compute_fractal))
             .service(
                 web::scope("/api")
                     .route("/getProjects", web::get().to(get_projects))

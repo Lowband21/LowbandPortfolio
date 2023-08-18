@@ -6,6 +6,14 @@
 
   let projects = [
     {
+      title: "Fractal",
+      description:
+        "A simple fractal simulation. \
+      The front-end is designed with Svelte, a lightweight, efficient, and reactive JavaScript framework. \
+      The back-end is powered by Actix, a Rust-based web framework known for its performance and type safety. \
+      This portfolio website showcases various projects, skills, and professional experiences, making it an interactive resume for prospective employers.",
+    },
+    {
       title: "This Portfolio",
       description:
         "A personal portfolio website engineered using a modern full-stack development framework. \
@@ -130,4 +138,3 @@
     justify-content: center;
   }
 </style>
-
