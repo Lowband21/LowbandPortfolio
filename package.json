@@ -10,6 +10,5 @@
     "npm": "6.x"
   },
   "dependencies": {
-    "svelte-markdown": "^0.3.0"
   }
 }
