@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 env:
   CARGO_TERM_COLOR: always
-  DIESEL_VERSION: 0.6.2
+  DIESEL_VERSION: 2.1.0
   DIESEL_FEATURES: "r2d2,postgres,sqlite"
 
 jobs:
