@@ -14,9 +14,10 @@ async fn main() -> std::io::Result<()> {
     std::env::set_var("RUST_LOG", "actix_web=info");
     env_logger::init();
 
-    let configuration = get_configuration().expect("Failed to read configuration.");
+    //let configuration = get_configuration().expect("Failed to read configuration.");
+    let port = env::var("PORT").unwrap_or("5000".to_string());
 
-    let address = format!("127.0.0.1:{}", configuration.application_port);
+    let address = format!("127.0.0.1:{}", port);
     let listener = TcpListener::bind(address)?;
 
     let redis_connection_string =
