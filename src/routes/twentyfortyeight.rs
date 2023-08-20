@@ -1,4 +1,4 @@
-use crate::game::oxydized2048::*;
+use crate::routes::game::oxydized2048::*;
 use actix_session::Session;
 use actix_web::{web, Error, HttpResponse};
 use serde::{Deserialize, Serialize};

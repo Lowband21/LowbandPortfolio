@@ -41,6 +41,7 @@ num-traits = "0.2.15"
 rayon = "1.7.0"
 mime_guess = "2.0.4"
 mime = "0.3.17"
+config = "0.11"
 
 
 

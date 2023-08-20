@@ -5,7 +5,7 @@
   import Quiz_Gen from "./projects/Quiz_Gen.svelte";
   import RSA_Messager from "./projects/RSA_Messager.svelte";
   import Game from "./projects/2048_Game.svelte";
-  import Fractal from "./projects/Fractal.svelte";
+  import Path_Finding from "./projects/Path_Finding.svelte";
   // import more projects as needed
 
   export let id; // this is the project id, which we receive as a prop
@@ -14,8 +14,8 @@
 
   onMount(() => {
     switch (id) {
-      case "Fractal":
-        ProjectComponent = Fractal;
+      case "Path_Finding":
+        ProjectComponent = Path_Finding;
         break;
       case "This_Portfolio":
         ProjectComponent = Project1;
@@ -61,4 +61,3 @@
     border: 3px solid #000;
   }
 </style>
-
