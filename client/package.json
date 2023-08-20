@@ -16,7 +16,7 @@
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^7.1.6",
     "sirv-cli": "^0.4.4",
-    "svelte": "^4.0.0",
+    "svelte": "^3.0.0",
     "svelte-particles": "1.0.0",
     "svelte-routing": "^2.0.0"
   },
