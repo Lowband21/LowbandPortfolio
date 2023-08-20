@@ -10,6 +10,7 @@
 
     onMount(async () => {
         try {
+            const { performance } = require("perf_hooks");
             const startTime = performance.now();
             const response = await fetch("/generate_keys");
             const data = await response.json();
