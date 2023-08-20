@@ -1,12 +1,12 @@
 //! main.rs
 use actix_session::storage::RedisSessionStore;
-use lowband_portfolio::configuration::get_configuration;
-use lowband_portfolio::startup::run;
-use std::net::TcpListener;
-use lowband_portfolio::DbPool;
 use diesel::r2d2::ConnectionManager;
 use diesel::r2d2::Pool;
 use diesel::PgConnection;
+use lowband_portfolio::configuration::get_configuration;
+use lowband_portfolio::startup::run;
+use lowband_portfolio::DbPool;
+use std::net::TcpListener;
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
     std::env::set_var("RUST_LOG", "actix_web=info");

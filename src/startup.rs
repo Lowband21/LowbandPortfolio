@@ -11,7 +11,6 @@ use actix_web::{web, App, HttpRequest, HttpResponse, HttpServer};
 use diesel::r2d2::{ConnectionManager, Pool};
 use diesel::PgConnection;
 use dotenv::dotenv;
-use std::env;
 use std::net::TcpListener;
 use std::time::Duration;
 
