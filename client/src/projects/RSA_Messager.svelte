@@ -10,12 +10,9 @@
 
     onMount(async () => {
         try {
-            const { performance } = require("perf_hooks");
-            const startTime = performance.now();
             const response = await fetch("/generate_keys");
             const data = await response.json();
-            const endTime = performance.now();
-            loadingTime = (endTime - startTime).toFixed(2);
+            loadingTime = 100;
             prime1 = data.prime1;
             prime2 = data.prime2;
             oddNumsTried = data.oddNumbersTried;
