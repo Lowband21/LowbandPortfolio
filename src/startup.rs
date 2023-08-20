@@ -17,19 +17,20 @@ use std::time::Duration;
 
 type DbPool = Pool<ConnectionManager<PgConnection>>;
 
-pub fn run(listener: TcpListener, redis_store: RedisSessionStore) -> std::io::Result<Server> {
+pub fn run(
+    listener: TcpListener,
+    redis_store: RedisSessionStore,
+    pool: DbPool,
+) -> std::io::Result<Server> {
     println!("Here");
     dotenv().ok();
 
-    std::env::set_var("RUST_LOG", "actix_web=info");
-    env_logger::init();
+    //let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
 
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-
-    let manager = ConnectionManager::<PgConnection>::new(database_url);
-    let pool: DbPool = Pool::builder()
-        .build(manager)
-        .expect("Failed to create pool.");
+    //let manager = ConnectionManager::<PgConnection>::new(database_url);
+    //let pool: DbPool = Pool::builder()
+    //    .build(manager)
+    //    .expect("Failed to create pool.");
     let secret_key = Key::generate();
 
     let server = HttpServer::new(move || {

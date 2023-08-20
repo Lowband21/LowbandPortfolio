@@ -8,4 +8,4 @@ pub mod startup;
 use diesel::r2d2::{ConnectionManager, Pool};
 use diesel::PgConnection;
 
-type DbPool = Pool<ConnectionManager<PgConnection>>;
+pub type DbPool = Pool<ConnectionManager<PgConnection>>;
