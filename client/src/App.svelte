@@ -1,5 +1,4 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
   import { Router, Route, Link } from "svelte-routing";
   import Home from "./Home.svelte";
   import Blog from "./Blog.svelte";
@@ -10,7 +9,6 @@
   import Skill from "./Skill.svelte"; // New line
 
   import Particles from "svelte-particles";
-
   let particlesConfig = {
     fpsLimit: 120,
     particles: {
@@ -119,4 +117,3 @@
     z-index: -9999;
   }
 </style>
-
