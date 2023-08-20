@@ -6,7 +6,9 @@ use diesel::PgConnection;
 use lowband_portfolio::configuration::get_configuration;
 use lowband_portfolio::startup::run;
 use lowband_portfolio::DbPool;
+use std::env;
 use std::net::TcpListener;
+
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
     std::env::set_var("RUST_LOG", "actix_web=info");
@@ -23,10 +25,11 @@ async fn main() -> std::io::Result<()> {
         .await
         .unwrap();
 
-    let connection_string = configuration.database.connection_string();
+    //let connection_string = configuration.database.connection_string();
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     // The `Connection` trait MUST be in scope for us to invoke
     // `PgConnection::connect` - it is not an inherent method of the struct!
-    let manager = ConnectionManager::<PgConnection>::new(connection_string);
+    let manager = ConnectionManager::<PgConnection>::new(database_url);
     let pool: DbPool = Pool::builder()
         .build(manager)
         .expect("Failed to create pool.");
