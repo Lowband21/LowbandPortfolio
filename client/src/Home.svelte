@@ -215,7 +215,6 @@
 
   .welcome-container,
   .bio-container {
-    width: 80%;
     text-align: center;
   }
 
