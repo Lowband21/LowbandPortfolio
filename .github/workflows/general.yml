@@ -5,7 +5,7 @@ on: [push, pull_request]
 env:
   CARGO_TERM_COLOR: always
   DIESEL_VERSION: 2.1.0
-  DIESEL_FEATURES: "r2d2,postgres,sqlite"
+  DIESEL_FEATURES: "postgres"
 
 jobs:
   test:
@@ -34,7 +34,6 @@ jobs:
             cargo install diesel_cli
             --version=${{ env.DIESEL_VERSION }}
             --features ${{ env.DIESEL_FEATURES }}
-            --locked
             # The --locked flag can be used to force Cargo to use the packaged Cargo.lock file if it is available. 
             # This may be useful for ensuring reproducible builds, to use the exact same set of dependencies that were available when the package was published. 
             # It may also be useful if a newer version of a dependency is published that no longer builds on your system, or has other problems
@@ -80,7 +79,6 @@ jobs:
             cargo install diesel_cli
             --version=${{ env.DIESEL_VERSION }}
             --features ${{ env.DIESEL_FEATURES }}
-            --locked
             # The --locked flag can be used to force Cargo to use the packaged Cargo.lock file if it is available. 
             # This may be useful for ensuring reproducible builds, to use the exact same set of dependencies that were available when the package was published. 
             # It may also be useful if a newer version of a dependency is published that no longer builds on your system, or has other problems
@@ -118,7 +116,6 @@ jobs:
             cargo install diesel_cli
             --version=${{ env.DIESEL_VERSION }}
             --features ${{ env.DIESEL_FEATURES }}
-            --locked
             # The --locked flag can be used to force Cargo to use the packaged Cargo.lock file if it is available. 
             # This may be useful for ensuring reproducible builds, to use the exact same set of dependencies that were available when the package was published. 
             # It may also be useful if a newer version of a dependency is published that no longer builds on your system, or has other problems
