@@ -1,4 +1,4 @@
-use actix_web::{web, App, HttpResponse, HttpServer};
+use actix_web::HttpResponse;
 use num_bigint::{BigInt, BigUint, RandBigInt, Sign::Plus, ToBigUint};
 use num_traits::{One, ToPrimitive, Zero};
 use std::time::Instant;
@@ -133,7 +133,7 @@ fn generate_odd_random_number(bits: u32) -> BigUint {
     if num.clone() % 2u128 == BigUint::from(0u128) {
         num += BigUint::from(1u128);
     }
-    BigUint::from(num)
+    num
 }
 
 // Jacobi symbol is a mathematical function used in primality testing
@@ -174,7 +174,7 @@ pub fn mod_exp(mut base: BigUint, mut exponent: BigUint, modulus: BigUint) -> Bi
     } else {
         One::one()
     };
-    base = base % modulus.clone();
+    base %= modulus.clone();
 
     // Keep squaring the base and reducing the exponent until the exponent becomes zero
     while !exponent.is_zero() {
@@ -206,7 +206,7 @@ fn solovay_strassen(n: &BigUint, iterations: u32) -> bool {
         let expected_result = if x == -1 {
             n_minus_one.clone() // If Jacobi symbol is -1, we expect n-1 in the next check
         } else {
-            BigUint::from(x.abs() as u64) // Otherwise we expect the absolute value of the Jacobi symbol
+            BigUint::from(x.unsigned_abs() as u64) // Otherwise we expect the absolute value of the Jacobi symbol
         };
 
         // If Jacobi symbol is 0, or a^(n-1)/2 is not congruent to Jacobi symbol mod n,
@@ -232,15 +232,9 @@ pub fn gen_keys() -> (PublicKey, PrivateKey, BigUint, BigUint, BigUint, u32) {
 
     // Find the first prime number 'p'
 
-    let p_thread = thread::spawn(move || {
-        let p = find_prime(num_tries, num_bits, num_iterations, None);
-        p
-    });
+    let p_thread = thread::spawn(move || find_prime(num_tries, num_bits, num_iterations, None));
 
-    let q_thread = thread::spawn(move || {
-        let q = find_prime(num_tries, num_bits, num_iterations, None);
-        q
-    });
+    let q_thread = thread::spawn(move || find_prime(num_tries, num_bits, num_iterations, None));
 
     let (mut p, mut odd_nums_tried_p, mut values_used_p) = p_thread.join().unwrap();
     let (mut q, mut odd_nums_tried_q, mut values_used_q) = q_thread.join().unwrap();

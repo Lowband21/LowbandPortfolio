@@ -55,7 +55,9 @@ async fn spawn_app() {
     let redis_store = RedisSessionStore::new(redis_connection_string)
         .await
         .unwrap();
-    let server = lowband_portfolio::startup::run(redis_store).expect("Failed to bind address");
+
+    let server =
+        lowband_portfolio::startup::run(listener, redis_store).expect("Failed to bind address");
     // Launch the server as a background task
     // tokio::spawn returns a handle to the spawned future,
     // but we have no use for it here, hence the non-binding let

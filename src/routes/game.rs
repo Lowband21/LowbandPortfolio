@@ -27,6 +27,12 @@ pub mod oxydized2048 {
         Ok,
     }
 
+    impl Default for Game {
+        fn default() -> Self {
+            Self::new()
+        }
+    }
+
     impl Game {
         pub fn new() -> Game {
             let mut game = Game {

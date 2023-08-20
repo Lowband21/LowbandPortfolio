@@ -1,4 +1,4 @@
-mod pathfinding {
+mod pathfinding_algorithms {
     use std::usize;
 
     pub fn dijkstra(grid: &Grid, start: Point, end: Point) -> Option<Vec<Point>> {
@@ -81,7 +81,7 @@ mod pathfinding {
     use std::collections::HashMap;
 
     fn heuristic(a: Point, b: Point) -> usize {
-        (b.0 as isize - a.0 as isize).abs() as usize + (b.1 as isize - a.1 as isize).abs() as usize
+        (b.0 as isize - a.0 as isize).unsigned_abs() + (b.1 as isize - a.1 as isize).unsigned_abs()
     }
 
     pub fn a_star(grid: &Grid, start: Point, end: Point) -> Option<Vec<Point>> {
@@ -203,9 +203,9 @@ mod pathfinding {
                     continue;
                 }
 
-                if !visited.contains_key(&next) {
+                if let std::collections::hash_map::Entry::Vacant(e) = visited.entry(next) {
                     came_from.insert(next, current);
-                    visited.insert(next, true);
+                    e.insert(true);
                     queue.push_back(next);
                 }
             }
@@ -215,8 +215,8 @@ mod pathfinding {
         None
     }
 }
-use actix_web::{post, web, App, HttpResponse, HttpServer};
-use pathfinding::{a_star, bfs, dijkstra, Grid, Point};
+use actix_web::{web, HttpResponse};
+use pathfinding_algorithms::{a_star, bfs, dijkstra, Grid, Point};
 use serde::Deserialize;
 
 #[derive(Deserialize)]

@@ -1,5 +1,5 @@
+use crate::routes::chat::*;
 use crate::routes::pathfinding::*;
-use crate::routes::routes::*;
 use crate::routes::rsa::*;
 use crate::routes::twentyfortyeight::*;
 
