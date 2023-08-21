@@ -133,11 +133,6 @@ async fn test_make_move() {
         action: Action::Left, // For instance
     };
     let response = client
-        .post(&format!("{}/game/new", &app.address))
-        .send()
-        .await
-        .expect("Failed to execute request.");
-    let response = client
         .post(&format!("{}/game/move", &app.address))
         .json(&move_info)
         .send()
