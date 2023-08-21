@@ -1,21 +1,20 @@
-use diesel::Queryable;
 use serde::Serialize;
 
-#[derive(Debug, Queryable, Serialize)]
+#[derive(Debug, sqlx::FromRow, Serialize)]
 pub struct Project {
-    id: i32,
-    name: String,
-    description: String,
+    pub id: i32,
+    pub name: String,
+    pub description: String,
 }
 
-#[derive(Debug, Queryable, Serialize)]
+#[derive(Debug, sqlx::FromRow, Serialize)]
 pub struct Skill {
-    id: i32,
-    name: String,
+    pub id: i32,
+    pub name: String,
 }
 
-#[derive(Debug, Queryable, Serialize)]
+#[derive(Debug, sqlx::FromRow, Serialize)]
 pub struct Bio {
-    id: i32,
-    bio_content: String,
+    pub id: i32,
+    pub bio_content: String,
 }

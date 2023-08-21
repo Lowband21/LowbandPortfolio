@@ -1,10 +1,6 @@
 use actix_session::storage::RedisSessionStore;
-use diesel::{Connection, PgConnection};
 use lowband_portfolio::configuration::get_configuration;
-
-use diesel::r2d2::{ConnectionManager, Pool};
-
-use lowband_portfolio::DbPool;
+use sqlx::{Connection, PgConnection};
 
 #[tokio::test]
 async fn health_check_works() {
@@ -14,10 +10,9 @@ async fn health_check_works() {
     let connection_string = configuration.database.connection_string();
     // The `Connection` trait MUST be in scope for us to invoke
     // `PgConnection::connect` - it is not an inherent method of the struct!
-    let manager = ConnectionManager::<PgConnection>::new(connection_string);
-    let pool: DbPool = Pool::builder()
-        .build(manager)
-        .expect("Failed to create pool.");
+    let connection = PgConnection::connect(&connection_string)
+        .await
+        .expect("Failed to connect to Postgres.");
     // We need to bring in `reqwest`
     // to perform HTTP requests against our application.
     let client = reqwest::Client::new();
@@ -75,12 +70,11 @@ async fn spawn_app() -> String {
     let connection_string = configuration.database.connection_string();
     // The `Connection` trait MUST be in scope for us to invoke
     // `PgConnection::connect` - it is not an inherent method of the struct!
-    let manager = ConnectionManager::<PgConnection>::new(connection_string);
-    let pool: DbPool = Pool::builder()
-        .build(manager)
-        .expect("Failed to create pool.");
+    let connection = PgConnection::connect(&connection_string)
+        .await
+        .expect("Failed to connect to Postgres.");
 
-    let server = lowband_portfolio::startup::run(listener, redis_store, pool)
+    let server = lowband_portfolio::startup::run(listener, redis_store, connection)
         .expect("Failed to bind address");
 
     // Launch the server as a background task
