@@ -1,9 +1,8 @@
 //! main.rs
 use actix_session::storage::RedisSessionStore;
-use lowband_portfolio::configuration::get_configuration;
+
 use lowband_portfolio::startup::run;
 use sqlx::PgPool;
-use sqlx::{Connection, PgConnection};
 use std::env;
 use std::net::TcpListener;
 

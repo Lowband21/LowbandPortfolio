@@ -1,9 +1,6 @@
 use crate::models::*;
-use sqlx::pool::PoolConnection;
 use sqlx::Error as SqlxError;
 use sqlx::PgConnection;
-
-type DbConnection = PoolConnection<sqlx::Postgres>;
 
 pub async fn get_all_projects(conn: &mut PgConnection) -> Result<Vec<Project>, SqlxError> {
     sqlx::query_as!(Project, "SELECT * FROM project")

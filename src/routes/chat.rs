@@ -1,15 +1,10 @@
 use actix_web::{web, Error as ActixError, HttpResponse, Responder};
-use sqlx::Acquire;
-use sqlx::PgConnection;
-use std::sync::Arc;
 
 use serde_derive::Deserialize;
 
 use sqlx::postgres::PgPool;
 
 use serde::Serialize;
-
-use actix_web::Error;
 
 use openai_api_rust::chat::*;
 use openai_api_rust::*;
