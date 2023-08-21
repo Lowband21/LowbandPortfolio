@@ -1,5 +1,6 @@
 use actix_session::storage::RedisSessionStore;
 use lowband_portfolio::configuration::get_configuration;
+use sqlx::PgPool;
 use sqlx::{Connection, PgConnection};
 
 #[tokio::test]
@@ -70,7 +71,7 @@ async fn spawn_app() -> String {
     let connection_string = configuration.database.connection_string();
     // The `Connection` trait MUST be in scope for us to invoke
     // `PgConnection::connect` - it is not an inherent method of the struct!
-    let connection = PgConnection::connect(&connection_string)
+    let connection = PgPool::connect(&connection_string)
         .await
         .expect("Failed to connect to Postgres.");
 
