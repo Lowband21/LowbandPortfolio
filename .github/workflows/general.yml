@@ -4,8 +4,8 @@ on: [push, pull_request]
 
 env:
   CARGO_TERM_COLOR: always
-  DIESEL_VERSION: 2.1.0
-  DIESEL_FEATURES: "postgres"
+  SQLX_VERSION: 0.6.2
+  SQLX_FEATURES: "rustls,postgres"
 
 jobs:
   test:
