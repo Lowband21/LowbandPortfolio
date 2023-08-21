@@ -45,10 +45,6 @@ pub async fn get_skills(pool: web::Data<PgPool>) -> Result<HttpResponse, ActixEr
         .await
         .expect("Failed to get DB connection from pool");
 
-    crate::db::fill_skills(&mut conn)
-        .await
-        .expect("Failed to fill skills");
-
     match crate::db::get_all_skills(&mut conn).await {
         Ok(skills) => Ok(HttpResponse::Ok().json(skills)),
         Err(e) => {
@@ -63,10 +59,6 @@ pub async fn get_bio(pool: web::Data<PgPool>) -> Result<HttpResponse, ActixError
         .acquire()
         .await
         .expect("Failed to get DB connection from pool");
-
-    crate::db::fill_bio(&mut conn)
-        .await
-        .expect("Failed to fill bio");
 
     match crate::db::get_all_bio(&mut conn).await {
         Ok(bio) => Ok(HttpResponse::Ok().json(bio)),
