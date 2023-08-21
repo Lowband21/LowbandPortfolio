@@ -3,9 +3,9 @@ use actix_session::Session;
 use actix_web::{web, Error, HttpResponse};
 use serde::{Deserialize, Serialize};
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 pub struct MoveInfo {
-    action: Action,
+    pub action: Action,
 }
 
 #[derive(Serialize)]
@@ -48,7 +48,10 @@ pub async fn make_move(data: web::Json<MoveInfo>, session: Session) -> Result<Ht
 }
 
 pub async fn undo(session: Session) -> Result<HttpResponse, Error> {
-    let mut game: Game = session.get("game_state").unwrap().unwrap();
+    let mut game: Game = session
+        .get("game_state")
+        .unwrap_or(Some(Game::new()))
+        .unwrap_or(Game::new());
     game.undo();
     session.insert("game_state", game.clone())?;
     Ok(HttpResponse::Ok().json(Update {

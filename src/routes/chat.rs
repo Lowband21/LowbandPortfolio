@@ -2,11 +2,9 @@ use actix_web::{web, Error as ActixError, HttpResponse, Responder};
 
 use serde_derive::Deserialize;
 
-use crate::DbPool;
+use sqlx::postgres::PgPool;
 
 use serde::Serialize;
-
-use actix_web::Error;
 
 use openai_api_rust::chat::*;
 use openai_api_rust::*;
@@ -26,60 +24,53 @@ pub async fn health_check() -> impl Responder {
     HttpResponse::Ok()
 }
 
-pub async fn get_projects(pool: web::Data<DbPool>) -> Result<HttpResponse, ActixError> {
-    let mut conn = pool.get().expect("Failed to get db connection from pool");
+pub async fn get_projects(pool: web::Data<PgPool>) -> Result<HttpResponse, ActixError> {
+    let mut conn = pool
+        .acquire()
+        .await
+        .expect("Failed to get db connection from pool");
 
-    let projects = web::block(move || crate::db::get_all_projects(&mut conn)).await;
-
-    match projects {
-        Ok(Ok(projects)) => Ok(HttpResponse::Ok().json(projects)),
-        Ok(Err(e)) => {
-            // Handle the case when there was an error in the inner Result
-            println!("{:?}", e);
-            Ok(HttpResponse::InternalServerError().finish())
-        }
+    match crate::db::get_all_projects(&mut conn).await {
+        Ok(projects) => Ok(HttpResponse::Ok().json(projects)),
         Err(e) => {
-            // Handle the case when there was an error in the outer Result
             println!("{:?}", e);
             Ok(HttpResponse::InternalServerError().finish())
         }
     }
 }
 
-pub async fn get_skills(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> {
-    let mut conn = pool.get().expect("Failed to get DB connection from pool");
+pub async fn get_skills(pool: web::Data<PgPool>) -> Result<HttpResponse, ActixError> {
+    let mut conn = pool
+        .acquire()
+        .await
+        .expect("Failed to get DB connection from pool");
 
-    let skills = web::block(move || crate::db::get_all_skills(&mut conn)).await;
+    crate::db::fill_skills(&mut conn)
+        .await
+        .expect("Failed to fill skills");
 
-    match skills {
-        Ok(Ok(skills)) => Ok(HttpResponse::Ok().json(skills)),
-        Ok(Err(e)) => {
-            // Handle the case when there was an error in the inner Result
-            println!("{:?}", e);
-            Ok(HttpResponse::InternalServerError().finish())
-        }
+    match crate::db::get_all_skills(&mut conn).await {
+        Ok(skills) => Ok(HttpResponse::Ok().json(skills)),
         Err(e) => {
-            // Handle the case when there was an error in the outer Result
             println!("{:?}", e);
             Ok(HttpResponse::InternalServerError().finish())
         }
     }
 }
 
-pub async fn get_bio(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> {
-    let mut conn = pool.get().expect("Failed to get DB connection from pool");
+pub async fn get_bio(pool: web::Data<PgPool>) -> Result<HttpResponse, ActixError> {
+    let mut conn = pool
+        .acquire()
+        .await
+        .expect("Failed to get DB connection from pool");
 
-    let bio = web::block(move || crate::db::get_all_bio(&mut conn)).await;
+    crate::db::fill_bio(&mut conn)
+        .await
+        .expect("Failed to fill bio");
 
-    match bio {
-        Ok(Ok(bio)) => Ok(HttpResponse::Ok().json(bio)),
-        Ok(Err(e)) => {
-            // Handle the case when there was an error in the inner Result
-            println!("{:?}", e);
-            Ok(HttpResponse::InternalServerError().finish())
-        }
+    match crate::db::get_all_bio(&mut conn).await {
+        Ok(bio) => Ok(HttpResponse::Ok().json(bio)),
         Err(e) => {
-            // Handle the case when there was an error in the outer Result
             println!("{:?}", e);
             Ok(HttpResponse::InternalServerError().finish())
         }
@@ -87,7 +78,6 @@ pub async fn get_bio(pool: web::Data<DbPool>) -> Result<HttpResponse, Error> {
 }
 
 pub async fn chat(
-    _pool: web::Data<DbPool>,
     msg: web::Json<ChatData>, // change ChatMessage to ChatData
 ) -> Result<HttpResponse, ActixError> {
     println!("In Chat with message: {:?}", msg);
