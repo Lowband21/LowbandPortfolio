@@ -1,8 +1,4 @@
 -- Add migration script here
-DROP TABLE bio;
-DROP TABLE project;
-DROP TABLE skill;
-
 CREATE TABLE bio (
     id SERIAL PRIMARY KEY,
     bio_content VARCHAR(1000) NOT NULL
