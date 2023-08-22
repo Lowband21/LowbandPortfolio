@@ -1,6 +1,5 @@
 <script>
   import { onMount } from "svelte";
-  import init from "../../../fractal_wasm/pkg/fractal_wasm.js";
   import * as twgl from "twgl.js";
 
   let wasmReady = false;
@@ -10,7 +9,7 @@
   let maxIterations = maxBaseIterations;
 
   function adjustMaxIterations() {
-    maxIterations = Math.min(maxBaseIterations * zoom, 100000); // Adjust based on your needs
+    maxIterations = Math.min(maxBaseIterations / zoom, 20000); // Adjust based on your needs
   }
 
   // Vertex Shader Source
@@ -61,9 +60,6 @@
 `;
 
   onMount(async () => {
-    await init();
-    wasmReady = true;
-
     const gl = document.getElementById("canvas").getContext("webgl");
     const programInfo = twgl.createProgramInfo(gl, [vs, fs]);
 
@@ -100,8 +96,8 @@
 
     function handleMouseMove(event) {
       if (event.buttons === 1) {
-        pan.x -= event.movementX / 10000.0;
-        pan.y += event.movementY / 10000.0;
+        pan.x -= (event.movementX / 10000.0) * zoom;
+        pan.y += (event.movementY / 10000.0) * zoom;
       }
     }
 

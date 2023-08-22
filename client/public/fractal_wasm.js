@@ -209,6 +209,17 @@ export function compute_fractal(x, y, zoom, width, height) {
 }
 
 /**
+* @param {number} cx
+* @param {number} cy
+* @param {number} max_iterations
+* @returns {number}
+*/
+export function mandelbrot_escape(cx, cy, max_iterations) {
+    const ret = wasm.mandelbrot_escape(cx, cy, max_iterations);
+    return ret >>> 0;
+}
+
+/**
 */
 export class Pixel {
 
