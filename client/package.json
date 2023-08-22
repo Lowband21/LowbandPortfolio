@@ -18,7 +18,8 @@
     "sirv-cli": "^0.4.4",
     "svelte": "^3.0.0",
     "svelte-particles": "1.0.0",
-    "svelte-routing": "^2.0.0"
+    "svelte-routing": "^2.0.0",
+    "twgl.js": "^5.5.1"
   },
   "scripts": {
     "build": "rollup -c",

@@ -69,3 +69,19 @@ pub fn compute_fractal(x: f64, y: f64, zoom: f64, width: usize, height: usize) -
     // Convert the data to a JS value using serde_wasm_bindgen.
     to_value(&result).unwrap()
 }
+
+#[wasm_bindgen]
+pub fn mandelbrot_escape(cx: f64, cy: f64, max_iterations: u32) -> u32 {
+    let mut x = 0.0;
+    let mut y = 0.0;
+    let mut iteration = 0;
+
+    while x * x + y * y <= 4.0 && iteration < max_iterations {
+        let xtemp = x * x - y * y + cx;
+        y = 2.0 * x * y + cy;
+        x = xtemp;
+        iteration += 1;
+    }
+
+    iteration
+}

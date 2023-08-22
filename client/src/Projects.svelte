@@ -7,7 +7,8 @@
   let projects = [
     {
       title: "Fractal",
-      description: "",
+      description:
+        "A mandelbrot fractal visualizer utilzing rust webassembly and webgl for ultra smooth and detailed rendering.",
     },
     {
       title: "Path Finding",
