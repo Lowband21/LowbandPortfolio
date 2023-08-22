@@ -1,5 +1,6 @@
 //! main.rs
 use actix_session::storage::RedisSessionStore;
+use dotenv::dotenv;
 
 use lowband_portfolio::startup::run;
 use sqlx::PgPool;
@@ -24,6 +25,7 @@ async fn main() -> std::io::Result<()> {
         .unwrap();
 
     //let connection_string = configuration.database.connection_string();
+    dotenv().ok();
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     // The `Connection` trait MUST be in scope for us to invoke
     // `PgConnection::connect` - it is not an inherent method of the struct!
