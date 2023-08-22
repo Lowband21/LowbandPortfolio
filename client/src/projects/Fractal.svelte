@@ -134,11 +134,22 @@
         pan.y += (event.movementY / 2000.0) * zoom;
       }
     }
+    // Function to prevent scrolling
+    function preventScroll(event) {
+      event.preventDefault();
+    }
 
     // Attach event listeners to the canvas
     const canvas = document.getElementById("canvas");
     canvas.addEventListener("wheel", handleWheel);
     canvas.addEventListener("mousemove", handleMouseMove);
+    // Attach event listeners to the canvas to disable and enable scrolling
+    canvas.addEventListener("mouseenter", () => {
+      window.addEventListener("wheel", preventScroll, { passive: false });
+    });
+    canvas.addEventListener("mouseleave", () => {
+      window.removeEventListener("wheel", preventScroll);
+    });
 
     // Start the rendering loop
     requestAnimationFrame(render);
@@ -206,7 +217,7 @@
   canvas {
     display: block;
     width: 100%;
-    height: 90vw;
+    height: 60vw;
   }
 
   /* Styling for the explanation content */
