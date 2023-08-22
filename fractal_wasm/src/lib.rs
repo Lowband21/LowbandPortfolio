@@ -3,6 +3,11 @@ use serde_wasm_bindgen::to_value;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
+pub fn hello_world() -> String {
+    "Hello, World!".to_string()
+}
+
+#[wasm_bindgen]
 #[derive(Serialize)]
 pub struct Pixel {
     x: usize,
@@ -30,7 +35,6 @@ impl Pixel {
 #[wasm_bindgen]
 pub fn compute_fractal(x: f64, y: f64, zoom: f64, width: usize, height: usize) -> JsValue {
     const MAX_ITERATIONS: usize = 1000;
-    const BLACK: &str = "rgb(0,0,0)";
 
     let mut result = Vec::new();
 
@@ -51,10 +55,10 @@ pub fn compute_fractal(x: f64, y: f64, zoom: f64, width: usize, height: usize) -
             }
 
             let color = if iterations == MAX_ITERATIONS {
-                BLACK.to_string()
+                "rgb(0, 0, 0)".to_string()
             } else {
-                let brightness = (iterations as f64 / MAX_ITERATIONS as f64 * 255.0) as u32;
-                format!("rgb({},{},{})", brightness, brightness, brightness)
+                let hue = 360.0 * iterations as f64 / MAX_ITERATIONS as f64;
+                format!("hsl({}, 100%, 50%)", hue)
             };
 
             let pixel = Pixel::new(pixel_x, pixel_y, color);

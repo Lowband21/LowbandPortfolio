@@ -6,6 +6,10 @@
 
   let projects = [
     {
+      title: "Fractal",
+      description: "",
+    },
+    {
       title: "Path Finding",
       description:
         "Explore the intricacies of pathfinding algorithms in real-time! Design your own mazes, choose from A*, Dijkstra's, or BFS, and watch as they find their way. Perfect for learners and professionals alike. Dive in now and discover the magic behind pathfinding!",
