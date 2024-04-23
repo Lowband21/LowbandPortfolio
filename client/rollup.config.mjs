@@ -22,6 +22,7 @@ export default {
       browser: true,
       dedupe: importee => importee === 'svelte' || importee.startsWith('svelte/'),
       exportConditions: ['svelte'],
+      mainFields: ['module', 'main'],
     }),
 		svelte({
 			// enable run-time checks when not in production
