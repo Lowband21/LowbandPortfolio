@@ -13,11 +13,13 @@ export default {
 		format: 'iife',
 		name: 'app',
 		file: 'public/bundle.js',
-  	globals: {
-  	  'svelte-routing': 'SvelteRouting'
-  	},
 	},
 	plugins: [
+    resolve({
+      browser: true,
+      dedupe: importee => importee === 'svelte' || importee.startsWith('svelte/'),
+      exportConditions: ['svelte'],
+    }),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
@@ -28,18 +30,6 @@ export default {
 			}
 		}),
 	    css({ output: 'bundle.css' }),
-
-		// If you have external dependencies installed from
-		// npm, you'll most likely need these plugins. In
-		// some cases you'll need additional configuration —
-		// consult the documentation for details:
-		// https://github.com/rollup/rollup-plugin-commonjs
-		// You can pass any of the Svelte compiler options
-		resolve({
-			browser: true,
-			dedupe: importee => importee === 'svelte' || importee.startsWith('svelte/'),
-		  exportConditions: ['svelte'],
-		}),
 
 		// Watch the `public` directory and refresh the
 		// browser on changes when not in production
