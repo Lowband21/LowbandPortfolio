@@ -13,7 +13,23 @@
   function getSkillURL(skillId) {
     return `/skills/${skillId}`;
   }
+  let scrolled = false;
 
+  function handleScroll() {
+    if (window.scrollY > 50 && !scrolled) {
+      scrolled = true;
+    } else if (window.scrollY <= 50 && scrolled) {
+      scrolled = false;
+    }
+  }
+
+  onMount(() => {
+    window.addEventListener('scroll', handleScroll);
+  });
+
+  onDestroy(() => {
+    window.removeEventListener('scroll', handleScroll);
+  });
   onMount(async () => {
     try {
       const res2 = await fetch("/api/getSkills");
@@ -27,26 +43,20 @@
     }
   });
 </script>
-
+<div class:scrolled="{scrolled}" class="landing-section">
+  <h1>Welcome to Lowband's Portfolio!</h1>
+</div>
 <div class="homepage">
-  <!-- Welcome Section -->
-  <div class="full-width-container welcome-container">
-    <div class="section-content">
-      <h1>Welcome to Lowband's Portfolio!</h1>
-    </div>
-  </div>
-
   <!-- Bio Section -->
-  <div class="full-width-container bio-container">
-    <div class="bio section-content text-block">
+  <div class="bio-container">
+    <div class="text-block">
       <h2>About Me</h2>
       <p>{bio}</p>
     </div>
   </div>
 
-  <!-- Experience Section -->
-  <div class="full-width-container experience-container">
-    <div class="section-content text-block">
+  <div class="experience-container">
+    <div class="text-block">
       <h2>Experience</h2>
 
       <h3>University of Denver</h3>
@@ -83,8 +93,8 @@
   </div>
 
   <!-- Education Section -->
-  <div class="full-width-container education-container">
-    <div class="section-content text-block">
+  <div class="education-container">
+    <div class="text-block">
       <h2>Education</h2>
 
       <h3>University of Denver</h3>
@@ -111,7 +121,6 @@
 
   <!-- Skills Section -->
   <div class="skills-container">
-    <div class="skills-section-content">
       <div class="skills">
         {#each skills as skill (skill.id)}
           <div class="skill" animate:flip={{ duration: 500 }}>
@@ -123,118 +132,109 @@
         {/each}
       </div>
     </div>
-  </div>
 </div>
 
 <style>
-  *,
-  *::before,
-  *::after {
+  .landing-section.scrolled {
+    transform: translateY(-100vh); /* Move the landing section up */
+  }
+
+  .homepage.scrolled {
+    margin-top: 0; /* Reset margin to show the content */
+  }
+  .landing-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  :global(body) {
+    overflow-x: hidden; /* Prevent horizontal scrolling */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: var(--font-primary);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
   }
 
   .homepage {
+    margin-top: 100vh; /* Push content below the viewport */
+    transition: margin-top 0.5s ease-in-out;
+    z-index: -5;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    min-height: 100vw;
-    transition: all 0.1s ease-in-out;
-    position: relative;
-    z-index: 1;
+    justify-content: flex-start;
+    padding-top: 5vh;
   }
 
-  .text-block,
-  .skills {
-    background-color: #333;
-    padding: 20px;
-    border-radius: 20px;
-    opacity: 90%;
+  .welcome-container, .bio-container, .experience-container, .education-container {
+    text-align: center;
+    max-width: 800px;
+    width: 90%;
+    margin: 2rem auto;
   }
 
-  .text-block {
-    border: 3px solid #000;
-  }
-
-  h1,
-  h2,
-  h3,
-  p {
-    font-size: 3em;
-    color: #fff;
-    margin-bottom: 1em;
+  h1, h2, h3 {
+    font-weight: 300;
   }
 
   h1 {
-    color: #000;
+    color: var(--primary-color);
   }
 
   h2 {
-    text-align: center;
-    font-size: 3em;
+    color: var(--primary-color);
+    margin-top: 1rem;
   }
 
-  h3 {
-    font-size: 2em;
+  .text-block {
+    background-color: var(--secondary-color);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   }
 
-  p {
-    font-size: 1.5em;
+  .skills-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5vh;
   }
 
   .skills {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 100%;
+    gap: 1rem;
   }
 
   .skill {
+    background-color: #2C3A47;
+    color: white;
+    padding: 0.5rem 1rem;
     border-radius: 5px;
-    margin: 0.5em;
-    padding: 0.5em;
-    transition: all 0.3s ease-in-out;
-    color: #333;
-    background-color: #fff;
+    transition: transform 0.3s ease;
+    cursor: pointer;
   }
 
   .skill:hover {
-    transform: scale(1.1);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   }
 
-  .full-width-container,
-  .section-content {
-    padding: 2em;
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  .welcome-container,
-  .bio-container {
-    text-align: center;
-  }
-
-  .skills-container {
-    width: 100%;
-    text-align: center;
-    align-self: center;
-  }
-
-  .experience-container,
-  .education-container {
-    display: flex;
-    justify-content: center;
-  }
-
-  .experience-container {
-    text-align: left;
-  }
-
-  .education-container {
-    text-align: right;
+  a {
+    color: white;
+    text-decoration: none;
   }
 </style>

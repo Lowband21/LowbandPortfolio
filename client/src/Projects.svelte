@@ -84,7 +84,7 @@
     <div class="project" animate:flip={{ duration: 500 }}>
       <!-- Link to individual project page using Link component -->
       <Link to="/project/{project.title.replaceAll(' ', '_')}">
-        <h3>{project.title}</h3>
+        <h2>{project.title}</h2>
         <p>{project.description}</p>
       </Link>
     </div>
@@ -96,30 +96,32 @@
   .projects {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    padding: 1em;
+    justify-self: center;
+    width: 90%;
+    max-width: 800px;
+    margin: 1rem auto;
   }
 
   .project {
-    border: 1px solid #000000;
-    border-radius: 5px;
-    margin: 0.5em;
-    padding: 0.5em;
-    transition: all 0.3s ease-in-out;
+    border: 1px solid var(--text-color); /* Using text color for border */
+    border-radius: var(--border-radius);
+    margin-bottom: 1.0em;
+    padding: 1.0em;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     width: 90%;
-    color: #333;
-    background-color: #333333;
+    color: var(--text-color); /* Using global text color */
+    background-color: var(--secondary-color);
+    text-align: center;
   }
 
   .project:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
 
   /* Project title style */
-  .project h3 {
+  .project h2 {
     color: #e8e8e8;
-    font-size: 1.5rem;
     margin-bottom: 0.5rem;
   }
 
@@ -131,10 +133,6 @@
   }
 
   /* Optional: Change the link text color on hover */
-  .project h3:hover,
-  .project p:hover {
-    color: #007bff;
-  }
   h1 {
     color: #e8e8e8;
     justify-content: center;

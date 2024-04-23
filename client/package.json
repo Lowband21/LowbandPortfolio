@@ -18,9 +18,10 @@
     "rollup-plugin-svelte": "^7.1.6",
     "sirv-cli": "^0.4.4",
     "svelte": "^3.0.0",
-    "svelte-particles": "1.0.0",
-    "svelte-routing": "^2.0.0",
-    "twgl.js": "^5.5.1"
+    "svelte-particles": "1.9.0",
+    "svelte-routing": "^2.7.0",
+    "twgl.js": "^5.5.1",
+    "typed.js": "^2.1.0"
   },
   "scripts": {
     "build": "rollup -c",
@@ -30,6 +31,7 @@
     "start:dev": "sirv public --single --dev"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.4"
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "svelte-routing": "^2.7.0"
   }
 }

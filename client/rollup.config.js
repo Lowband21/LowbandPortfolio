@@ -13,7 +13,10 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: 'public/bundle.js'
+		file: 'public/bundle.js',
+  	globals: {
+  	  'svelte-routing': 'SvelteRouting'
+  	},
 	},
 	plugins: [
 		svelte({
@@ -35,7 +38,8 @@ export default {
 		// You can pass any of the Svelte compiler options
 		resolve({
 			browser: true,
-			dedupe: importee => importee === 'svelte' || importee.startsWith('svelte/')
+			dedupe: importee => importee === 'svelte' || importee.startsWith('svelte/'),
+		  exportConditions: ['svelte'],
 		}),
 		commonjs(),
 

@@ -7,8 +7,14 @@
   import Post from "./Post.svelte";
   import Project from "./Project.svelte"; // New line
   import Skill from "./Skill.svelte"; // New line
+  import "./global.css";
 
   import Particles from "svelte-particles";
+
+  import Typed from 'typed.js';
+
+
+
   let particlesConfig = {
     fpsLimit: 120,
     particles: {
@@ -27,16 +33,74 @@
       },
     },
   };
+  let navbarExpanded = false;
+
+  function expandNavbar(){
+    setTimeout(() => {
+      // Add the class after the width transition duration
+      document.querySelectorAll('.link-text').forEach(link => {
+        link.classList.remove('link-text');
+        link.classList.add('link-text-visible');
+      });
+    }, 500); // Duration of the navbar's width transition
+  }
+  function collapseNavbar() {
+    // Remove the class immediately when mouse leaves
+    document.querySelectorAll('.link-text-visible').forEach(link => {
+      link.classList.remove('link-text-visible');
+      link.classList.add('link-text');
+    });
+  }
+
+  function handleNavbarHover() {
+    navbarExpanded = !navbarExpanded;
+
+    if (navbarExpanded) {
+      setTimeout(() => {
+        // Add the class after the width transition duration
+        document.querySelectorAll('.link-text').forEach(link => {
+          //link.classList.remove('link-text');
+          link.classList.add('link-text-visible');
+        });
+      }, 500); // Duration of the navbar's width transition
+    } else {
+      // Remove the class immediately when mouse leaves
+      document.querySelectorAll('.link-text').forEach(link => {
+        link.classList.remove('link-text-visible');
+        //link.classList.add('link-text');
+      });
+    }
+  }
 </script>
 
 <Particles options={particlesConfig} />
 <div class="background">
   <Router>
-    <nav class="navbar">
-      <div class="navbar-link"><Link to="/">Home</Link></div>
-      <div class="navbar-link"><Link to="/blog">Blog</Link></div>
-      <div class="navbar-link"><Link to="/chat">Chat</Link></div>
-      <div class="navbar-link"><Link to="/projects">Projects</Link></div>
+    <nav class="navbar" on:mouseenter={expandNavbar} on:mouseleave={collapseNavbar}>
+      <div class="link-container">
+        <Link to="/" class="navbar-link">
+          <i class="fas fa-home"></i>
+          <span class="link-text">Home</span>
+        </Link>
+      </div>
+      <div class="link-container">
+      <Link to="/blog" class="navbar-link">
+        <i class="fas fa-blog"></i>
+        <span class="link-text">Blog</span>
+      </Link>
+      </div>
+      <div class="link-container">
+      <Link to="/chat" class="navbar-link">
+        <i class="fas fa-comments"></i>
+        <span class="link-text">Chat</span>
+      </Link>
+      </div>
+      <div class="link-container">
+      <Link to="/projects" class="navbar-link">
+        <i class="fas fa-project-diagram"></i>
+        <span class="link-text">Projects</span>
+      </Link>
+      </div>
     </nav>
     <Route path="/" component={Home} />
     <Route path="/blog" component={Blog} />
@@ -59,53 +123,82 @@
     margin: 0;
     padding: 0;
   }
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .navbar-link {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 10px;
-    background-color: #5294e2; /* Changed to Bootstrap's primary color */
-    color: #ffffff !important; /* Changed to white */
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease-in-out;
-  }
-
-  .navbar-link:hover {
-    background-color: #0056b3; /* Darkened version of primary color */
-  }
 
   .navbar {
+    position: fixed; /* Fixed position */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Full viewport height */
+    width: var(--navbar-width-collapsed); /* Adjust this as needed */
     display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-    width: 100%;
-    height: max-content;
-    background-color: #333333; /* Changed to Bootstrap's light color */
-    border-radius: 0px; /* New property */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin: 0;
-    padding: 0;
+    flex-direction: column; /* Align links vertically */
+    align-items: center; /* Center links horizontally */
+    background-color: var(--secondary-color);
+    box-shadow: var(--box-shadow);
     z-index: 9999;
+    transition: width 0.5s ease-in-out; /* Transition for width */
+  }
+  .navbar:hover {
+    width: var(--navbar-width-expanded); /* Width when expanded */
+    transition: width 0.5s ease-in-out; /* Transition for width */
   }
 
   .navbar-link :global(a) {
-    color: #000000; /* Changed to white */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%; /* Full width of the container */
+    height: 100%; /* Full height of the container */
+    color: var(--text-color);
     text-decoration: none;
-    display: block;
+    padding: var(--navbar-padding); /* Adjust vertical padding */
+    border: 1px solid #ccc; /* Example border, change as needed */
+  }
+
+  .link-container {
+    display: flex;
+    align-items: center; /* Vertically center the contents */
+    justify-content: flex-start; /* Align items to the start */
+    color: var(--text-color);
+    padding: var(--navbar-padding);
     width: 100%;
-    height: 100%;
+    height: 80px;
   }
-  .navbar-link :global(a:hover),
-  .navbar-link :global(a:focus) {
-    color: #000000;
+
+  .navbar-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%; /* Full width of the container */
+    text-decoration: none;
   }
+
+  .fas, .link-text {
+    vertical-align: middle; /* Align inline elements to the middle */
+  }
+
+  .fas {
+    font-size: 2.0em; /* Adjust icon size */
+    margin-right: 10px; /* Space between icon and text */
+  }
+
+  .link-text {
+    font-size: 2.0em; /* Adjust text size */
+    display: inline-block;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: opacity 4.5s, width 3.5s;
+  }
+
+  .link-text-visible {
+    opacity: 1;
+    width: auto;
+    transition: opacity 5s, width 5s;
+  }
+
   :global(#tsparticles) {
     margin: 0;
     padding: 0;

@@ -55,66 +55,77 @@
 
 <style>
     body {
-        font-family: "Arial", sans-serif;
-        background-color: #1a1a1a;
-        color: #f1f1f1; /* Brightened text color for better visibility */
+        font-family: var(--font-primary);
+        background-color: var(--background-color);
+        color: var(--text-color);
     }
+
     #chat-window {
-        max-width: 90%;
-        height: 90%;
+        height: 70vh; /* Adjusted for a fixed height */
         overflow: auto;
-        border: 1px solid #333333;
+        border: 1px solid #333;
         padding: 15px;
         margin: 20px auto;
-        background-color: rgba(34, 34, 34, 0.9);
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        background-color: var(--secondary-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        width: 90%;
+        max-width: 800px;
     }
+
     .prompt {
-        max-width: 90%;
+        max-width: 800px;
+        width: 90%;
         display: flex;
         margin: 10px auto;
-        border-radius: 8px;
-        overflow: hidden; /* This will help contain the child elements */
+        border-radius: var(--border-radius);
+        overflow: hidden; /* Contain the child elements */
     }
+
     input {
-        flex-grow: 1; /* Makes the input field take up available space */
+        flex-grow: 1;
         border: none;
         padding: 10px;
-        border-right: 1px solid #333333; /* Added a right border for distinction */
-        border-radius: 8px 0 0 8px;
-        background-color: #333333;
-        color: #f1f1f1;
-        box-sizing: border-box; /* Makes sure padding and border are included in total width/height */
+        border-right: 1px solid #333;
+        border-radius: var(--border-radius) 0 0 var(--border-radius);
+        background-color: #333;
+        color: var(--text-color);
+        box-sizing: border-box;
     }
+
     button {
         border: none;
-        background-color: #007bff;
+        background-color: var(--primary-color);
         color: white;
-        padding: 10px 16px; /* Adjusted padding for better alignment */
-        border-radius: 0 8px 8px 0;
+        padding: 10px 16px;
+        border-radius: 0 var(--border-radius) var(--border-radius) 0;
         cursor: pointer;
-        box-sizing: border-box; /* Makes sure padding and border are included in total width/height */
+        box-sizing: border-box;
     }
+
     .user-message,
     .gpt-message {
         margin: 10px;
         padding: 10px;
-        border-radius: 8px;
-        color: #f1f1f1;
+        border-radius: var(--border-radius);
+        color: var(--text-color);
     }
+
     .user-message {
-        background-color: #3a3a3a;
+        background-color: rgba(58, 58, 58, 0.9);
         align-self: flex-end;
-        border: 1px solid #444444;
+        border: 1px solid #444;
         color: white;
     }
+
     .gpt-message {
-        background-color: #2a2a2a;
-        border: 1px solid #444444;
+        background-color: rgba(42, 42, 42, 0.9);
+        border: 1px solid #444;
     }
+
     h2 {
         text-align: center;
         margin-top: 20px;
+        color: var(--text-color);
     }
 </style>

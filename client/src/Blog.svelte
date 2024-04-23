@@ -4,6 +4,8 @@
   import { Link } from "svelte-routing";
   import { flip } from "svelte/animate";
 
+  import "global.css";
+
   let posts = blogPosts.map((Component, id) => ({ id, Component })).reverse();
 </script>
 
@@ -22,6 +24,10 @@
 <style>
   .homepage {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   /* Style for blog post list */
@@ -29,29 +35,35 @@
     margin: 1rem auto;
     justify-self: center;
     width: 90%;
-
-    
+    max-width: 800px; /* Limiting the width for better readability */
   }
 
   /* Style for individual blog post */
   .blog-post {
-    border: 1px solid #000000;
-    border-radius: 5px;
+    border: 1px solid var(--text-color); /* Using text color for border */
+    border-radius: var(--border-radius);
     padding: 1rem;
     margin-bottom: 1rem;
-    background-color: #333333;
-    transition: all 0.3s ease-in-out;
-    text-justify: center;
+    background-color: var(--secondary-color);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    text-align: center; /* Replacing text-justify for better text alignment */
+    color: var(--text-color); /* Using global text color */
   }
 
   .blog-post:hover {
-    transform: scale(1.1);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    transform: scale(1.05); /* Slightly reduced scale for subtlety */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Softened shadow for a cleaner look */
   }
+
   .brief {
-    color: #ffffff;
+    color: var(--text-color); /* Consistent text color */
   }
-  h1, h2, h3, p {
-    color: #ffffff;
+
+  h1, h2, h3 {
+    margin-bottom: 0.5rem; /* Added spacing below headings */
+  }
+
+  p {
+    margin-bottom: 1rem; /* Ensuring consistent bottom margin for paragraphs */
   }
 </style>
