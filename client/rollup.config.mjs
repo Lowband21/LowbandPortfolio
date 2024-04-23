@@ -15,22 +15,24 @@ export default {
 		file: 'public/bundle.js',
 	},
 	plugins: [
+		svelte({
+      compilerOptions: {
+				// enable run-time checks when not in production
+				dev: !production,
+				// we'll extract any component CSS out into
+				// a separate file — better for performance
+				css: css => {
+					css.write('public/bundle.css');
+				}
+			}
+		}),
     resolve({
       browser: true,
       dedupe: importee => importee === 'svelte' || importee.startsWith('svelte/'),
       exportConditions: ['svelte'],
-      mainFields: ['module', 'main'],
+      extensions: ['.svelte']
     }),
-		svelte({
-			// enable run-time checks when not in production
-			dev: !production,
-			// we'll extract any component CSS out into
-			// a separate file — better for performance
-			css: css => {
-				css.write('public/bundle.css');
-			}
-		}),
-	    css({ output: 'bundle.css' }),
+	  css({ output: 'bundle.css' }),
 
 		// Watch the `public` directory and refresh the
 		// browser on changes when not in production
