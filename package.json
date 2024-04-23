@@ -7,7 +7,7 @@
   },
   "engines": {
     "node": "21.x",
-    "npm": "latest"
+    "npm": "9.x"
   },
   "dependencies": {
   }
