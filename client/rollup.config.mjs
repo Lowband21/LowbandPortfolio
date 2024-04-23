@@ -13,6 +13,9 @@ export default {
 		format: 'iife',
 		name: 'app',
 		file: 'public/bundle.js',
+  	globals: {
+  	  'svelte-routing': 'svelteRouting'
+  	},
 	},
 	plugins: [
     resolve({
