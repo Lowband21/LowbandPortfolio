@@ -6,7 +6,6 @@
   },
   "dependencies": {
     "@panzoom/panzoom": "^4.5.1",
-    "@rollup/plugin-commonjs": "latest",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "@rollup/plugin-terser": "latest",
     "@rollup/plugin-typescript": "^11.1.2",
@@ -34,7 +33,7 @@
     "start:dev": "sirv public --single --dev"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
     "svelte-routing": "^2.7.0"
   }
 }
