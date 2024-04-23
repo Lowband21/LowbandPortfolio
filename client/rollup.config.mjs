@@ -30,7 +30,13 @@ export default {
       browser: true,
       dedupe: importee => importee === 'svelte' || importee.startsWith('svelte/'),
       exportConditions: ['svelte'],
-      extensions: ['.svelte']
+      extensions: ['.svelte'],
+  		moduleContext: (id) => {
+  		  // Return 'this' for 'svelte-routing' and similar Svelte-related modules
+  		  if (id.includes('svelte-routing')) {
+  		    return 'this';
+  		  }
+  		}
     }),
 	  css({ output: 'bundle.css' }),
 
