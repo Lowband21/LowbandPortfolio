@@ -4,8 +4,6 @@
   import { Link } from "svelte-routing";
   import { flip } from "svelte/animate";
 
-  import "global.css";
-
   let posts = blogPosts.map((Component, id) => ({ id, Component })).reverse();
 </script>
 
