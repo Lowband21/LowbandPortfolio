@@ -13,8 +13,6 @@
 
   import Typed from 'typed.js';
 
-
-
   let particlesConfig = {
     fpsLimit: 120,
     particles: {
@@ -29,7 +27,7 @@
         enable: true,
       },
       number: {
-        value: 500,
+        value: 200,
       },
     },
   };

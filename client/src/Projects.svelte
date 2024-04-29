@@ -7,16 +7,19 @@
   let projects = [
     {
       title: "Fractal",
+      id: 7,
       description:
         "A mandelbrot fractal visualizer utilzing rust webassembly and webgl for ultra smooth and detailed rendering.",
     },
     {
       title: "Path Finding",
+      id: 6,
       description:
         "Explore the intricacies of pathfinding algorithms in real-time! Design your own mazes, choose from A*, Dijkstra's, or BFS, and watch as they find their way. Perfect for learners and professionals alike. Dive in now and discover the magic behind pathfinding!",
     },
     {
       title: "This Portfolio",
+      id: 5,
       description:
         "A personal portfolio website engineered using a modern full-stack development framework. \
       The front-end is designed with Svelte, a lightweight, efficient, and reactive JavaScript framework. \
@@ -25,6 +28,7 @@
     },
     {
       title: "GPTFit",
+      id: 4,
       description:
         "A web application developed to simplify and personalize the creation of exercise programs. \
       By harnessing the power of OpenAI's API, GPTFit generates workout plans tailored to users' fitness levels, goals, and preferences. \
@@ -32,6 +36,7 @@
     },
     {
       title: "Quiz Generation",
+      id: 3,
       description:
         "An extensive toolkit for generating and evaluating quizzes from academic content using OpenAI's API. \
       This tool enables educators to automate quiz creation, enhancing efficiency and diversity of questions. \
@@ -39,6 +44,7 @@
     },
     {
       title: "Simple RSA Messager",
+      id: 2,
       description:
         "The project is a secure messaging system that employs RSA, a public-key cryptography protocol, to safeguard the messages exchanged between a client and a server. \
       A unique aspect of this system is the highly efficient generation of 2048-bit prime numbers, a critical component of the RSA algorithm, achieved in a timeframe of approximately 100 milliseconds. \
@@ -47,6 +53,7 @@
     },
     {
       title: "MQTT CMD Internal Testing and Validation",
+      id: 1,
       description:
         "A high-performance asynchronous program developed in Rust, \
       designed to interface with an embedded system over MQTT (Message Queuing Telemetry Transport). \
@@ -55,6 +62,7 @@
     },
     {
       title: "2048 Game",
+      id: 0,
       description:
         "An interactive recreation of the popular 2048 game. \
       This project is supplemented with an artificial intelligence (AI) agent based on Q-learning, a type of reinforcement learning algorithm. \

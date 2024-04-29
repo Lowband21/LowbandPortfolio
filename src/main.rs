@@ -13,7 +13,7 @@ async fn main() -> std::io::Result<()> {
     env_logger::init();
 
     //let configuration = get_configuration().expect("Failed to read configuration.");
-    let port = env::var("PORT").unwrap_or("5001".to_string());
+    let port = env::var("PORT").unwrap_or("5005".to_string());
 
     let address = format!("0.0.0.0:{}", port);
     let listener = TcpListener::bind(address)?;

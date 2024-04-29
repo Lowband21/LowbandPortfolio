@@ -3,11 +3,10 @@
   import { fly } from "svelte/transition";
   import { flip } from "svelte/animate";
   import { Link } from "svelte-routing";
-  import Particles from "svelte-particles";
 
   let name = "Lowband";
   let skills = [];
-  let bio = "";
+  let bio = "I'm a meticulous and driven Computer Science student from the University of Denver, boasting a robust academic performance. My toolkit of programming languages spans Python, Rust, C&C++, Javascript, Haskell and Java, with a particular focus on Rust and Python, owing to my extensive practical experience. Beyond programming, I also bring proficiency in Linux system administration, Docker, Virtualization, and Shell Scripting. My passion lies in leveraging these skills to solve complex problems and innovate.";
 
   // Function to generate the project page URL
   function getSkillURL(skillId) {
@@ -23,6 +22,11 @@
     }
   }
 
+  function scrollToContent() {
+    const contentSection = document.querySelector('.homepage');
+    contentSection.scrollIntoView({ behavior: 'smooth' });
+  }
+
   onMount(() => {
     window.addEventListener('scroll', handleScroll);
   });
@@ -35,16 +39,23 @@
       const res2 = await fetch("/api/getSkills");
       skills = await res2.json();
 
-      const res3 = await fetch("/api/getBio");
-      bio = await res3.json();
-      bio = bio.bio_content;
+      //const res3 = await fetch("/api/getBio");
+      //bio = await res3.json();
+      //bio = bio.bio_content;
     } catch (error) {
       console.error("Error:", error);
     }
   });
 </script>
 <div class:scrolled="{scrolled}" class="landing-section">
-  <h1>Welcome to Lowband's Portfolio!</h1>
+  <div class="welcome-container">
+    <h1>Welcome to Lowband's Portfolio!</h1>
+    <button on:click="{scrollToContent}" id="scroll_button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"></path>
+      </svg>
+    </button>
+  </div>
 </div>
 <div class="homepage">
   <!-- Bio Section -->
@@ -102,7 +113,7 @@
         <strong>Bachelor's degree, Computer Science</strong> (Sep 2020 - Jun
         2024)<br />
         Current Grade Level: Senior<br />
-        Grade in Major: 3.91
+        Grade in Major: 3.98
       </p>
 
       <h3>Homeschool</h3>
@@ -177,6 +188,30 @@
     padding-top: 5vh;
   }
 
+  .welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  #scroll_button {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  #scroll_button:hover {
+    transform: translateX(-50%) scale(1.1);
+  }
+
   .welcome-container, .bio-container, .experience-container, .education-container {
     text-align: center;
     max-width: 800px;
@@ -210,6 +245,8 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 5vh;
+    padding-left: 2rem; /* Add left padding */
+    padding-right: 2rem; /* Add right padding */
   }
 
   .skills {
