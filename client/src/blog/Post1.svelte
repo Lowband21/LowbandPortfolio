@@ -1,6 +1,9 @@
 <!-- Post1.svelte -->
 <script>
   console.log("Post1 Loaded");
+  let title = "Building My Portfolio Website";
+  let date = "Apr 29, 2024";
+  let author = "Grayson Hieb";
 </script>
 
 <style>
