@@ -7,7 +7,7 @@
 </script>
 
 <style>
-  .post {
+  .blog-post {
     width: 90%;
     margin: auto;
     background-color: #333333;
@@ -20,76 +20,46 @@
   h1, h2, h3, p {
     color: #e8e8e8;
   }
+
+  header {
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+  }
 </style>
-<div class=post>
-  <h1>Unleashing the Power of Full Stack Development with Svelte and Flask</h1>
-  <h2>Introduction</h2>
-  <p>
-    In the ever-evolving landscape of web development, the hunt for the perfect
-    tech stack never ends. Today, we'll explore an innovative combination that
-    offers a seamless development experience and robust performance: Svelte for
-    the frontend and Flask for the backend.
-  </p>
 
-  <h2>The Charm of Svelte</h2>
-  <p>
-    Svelte, a modern JavaScript framework, stands out with its unique
-    compile-time approach to building user interfaces. Unlike traditional
-    frameworks that do the bulk of their work in the browser, Svelte shifts that
-    work into a compile step that happens on your machine when you build your
-    app.
-  </p>
+<article class="blog-post">
+ <header>
+   <h1>{title}</h1>
+   <p>Published on {date} by {author}</p>
+ </header>
 
-  <p>
-    This shift results in highly performant code that surgically updates the
-    DOM, leading to faster initial rendering and updates. This aspect, combined
-    with Svelte's intuitive and clean syntax, makes it a joy to work with for
-    developers.
-  </p>
+ <div class="content">
+   <p>When I set out to create my portfolio website, I knew I wanted to use a modern, innovative tech stack that would not only showcase my skills but also be a joy to work with. Rust, with its performance, safety, and delightful developer experience, was an obvious choice for me. I absolutely love working with Rust, and I couldn't pass up the opportunity to use it for this project.</p>
 
-  <h2>The Simplicity of Flask</h2>
-  <p>
-    On the other side of our tech stack, we have Flask, a micro web framework
-    written in Python. Its "micro" designation doesn't imply lack of
-    functionality, but a core focus on simplicity, minimalism, and flexibility.
-  </p>
+   <p>For the web framework, I chose Actix. It's stable, well-supported, and has excellent documentation. Plus, Actix is built on top of Rust's powerful async/await primitives, which allows for efficient handling of concurrent requests. It also integrates seamlessly with other Rust libraries and frameworks, making it a solid choice for building web applications.</p>
 
-  <p>
-    Flask offers developers the freedom to choose their own tools and libraries,
-    making it an excellent choice for creating small to complex web
-    applications. Its lightweight nature and easy learning curve make it a
-    popular choice for developers.
-  </p>
+   <p>On the frontend, I decided to go with Svelte. I was drawn to its novel and easy-to-grasp component system, which makes building interactive user interfaces a breeze. Svelte's popularity is on the rise, and I wanted to explore its capabilities firsthand.</p>
 
-  <h2>Why Svelte and Flask?</h2>
-  <p>
-    Pairing Svelte with Flask combines the best of both worlds. Flask's
-    simplicity and flexibility perfectly complement Svelte's efficient and
-    straightforward approach to frontend development. This combo allows
-    developers to build fast, interactive web applications with ease and
-    efficiency.
-  </p>
+   <p>To be honest, my journey wasn't a straight path. I initially started with Flask for the backend and later switched to Actix. I also experimented with Diesel for database interactions before settling on SQLx. It was a process of trial and error, following guides and documentation to determine best practices. Throughout the development, I focused on correctness, performance, and refactor-ability.</p>
 
-  <p>
-    With Svelte handling the frontend, your web app benefits from quick load
-    times and smooth updates. On the backend, Flask's versatility allows for
-    easy API development and integration with various databases and third-party
-    services.
-  </p>
+   <p>Structuring the project was an interesting challenge. The backend, written in Rust, serves as the main project folder, while the Svelte frontend resides in a subfolder. I organized the backend routes by type and the frontend components by their purpose, with separate folders for blog posts and projects. The frontend compiles the static files, which are then served by the backend.</p>
 
-  <h2>Conclusion</h2>
-  <p>
-    In conclusion, the combination of Svelte and Flask offers a powerful,
-    efficient, and enjoyable development experience. This stack is well-suited
-    to modern web development, where performance and user experience are
-    paramount.
-  </p>
+   <p>I did encounter some struggles along the way, particularly with database interactions using Diesel and SQLx. While not inherently difficult, ensuring that everything aligned correctly was a tedious process. I also faced some issues with dependencies and rollup configuration on the frontend. In contrast, the Rust backend always worked flawlessly, further reinforcing my appreciation for Rust and my growing dislike for dynamically typed and interpreted languages.</p>
 
-  <p>
-    With their unique strengths and synergies, Svelte and Flask make full-stack
-    development a truly delightful experience. I look forward to continuing my
-    journey with this tech stack and encourage others to explore what it has to
-    offer.
-  </p>
-</div>
+   <p>For data persistence, I incorporated a Redis server and a PostgreSQL database, although the majority of the website's content is static and doesn't heavily rely on them. Nonetheless, I'm glad I gained experience working with these technologies, and I'm sure I'll find opportunities to utilize them more extensively in future enhancements.</p>
 
+   <p>Looking back, if I were to start over, I would have begun with Rust, Actix, SQLx, and Svelte right from the start. I would have invested more time in checking dependencies and recommended versions, and spent more effort planning the project from the beginning. However, I'm quite satisfied with how the trial-and-error approach turned out in the end.</p>
+
+   <p>I'm particularly proud of the website's home page and the interactive projects I built. The design looks aesthetic, and the layout is highly functional. This project not only allowed me to explore new technologies but also challenged me to think critically and solve problems creatively.</p>
+
+   <p>In the end, building my portfolio website was an incredible learning experience. It gave me the opportunity to work with cutting-edge technologies, showcase my skills, and create something I'm truly proud of. I look forward to continuing to refine and expand my website, and I'm excited to see where this journey takes me next.</p>
+ </div>
+</article>
