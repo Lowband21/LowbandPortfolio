@@ -51,6 +51,7 @@
 <style>
   .text-block {
     width: 90%;
+    max-width: 800px;
     margin: auto;
     background-color: #333333;
     margin-top: 20px;

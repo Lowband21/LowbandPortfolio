@@ -116,7 +116,6 @@
     margin-bottom: 1.0em;
     padding: 1.0em;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    width: 90%;
     color: var(--text-color); /* Using global text color */
     background-color: var(--secondary-color);
     text-align: center;
