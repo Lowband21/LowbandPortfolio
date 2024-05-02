@@ -9,13 +9,16 @@
       title: "Fractal",
       id: 7,
       description:
-        "A mandelbrot (and other) fractal visualizer utilzing rust and bevy for ultra smooth, configurable, and detailed rendering.",
+        "Explore the Mandelbrot, Burning Ship, and Julia fractals with unparalleled clarity using the Mandelbrot Fractal Viewer! \
+      Engineered with Rust and Bevy, this application delivers ultra-smooth performance and customizable settings for a personalized viewing experience. \
+      Toggle effortlessly between fractal types, dive into high-resolution visuals, and manipulate dynamic coloring.",
     },
     {
       title: "Path Finding",
       id: 6,
       description:
-        "Explore the intricacies of pathfinding algorithms in real-time! Design your own mazes, choose from A*, Dijkstra's, or BFS, and watch as they find their way.",
+        "Explore the intricacies of pathfinding algorithms in real-time! Design your own mazes, choose from A*, Dijkstra's, or BFS, \
+      and watch as they find their way.",
     },
     {
       title: "This Portfolio",
