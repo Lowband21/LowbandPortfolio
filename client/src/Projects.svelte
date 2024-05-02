@@ -9,13 +9,13 @@
       title: "Fractal",
       id: 7,
       description:
-        "A mandelbrot fractal visualizer utilzing rust webassembly and webgl for ultra smooth and detailed rendering.",
+        "A mandelbrot (and other) fractal visualizer utilzing rust and bevy for ultra smooth, configurable, and detailed rendering.",
     },
     {
       title: "Path Finding",
       id: 6,
       description:
-        "Explore the intricacies of pathfinding algorithms in real-time! Design your own mazes, choose from A*, Dijkstra's, or BFS, and watch as they find their way. Perfect for learners and professionals alike. Dive in now and discover the magic behind pathfinding!",
+        "Explore the intricacies of pathfinding algorithms in real-time! Design your own mazes, choose from A*, Dijkstra's, or BFS, and watch as they find their way.",
     },
     {
       title: "This Portfolio",
@@ -43,13 +43,10 @@
       Evaluating capability ensures the quality and relevance of generated questions. This project underlines the power of AI in improving the educational sector.",
     },
     {
-      title: "Simple RSA Messager",
+      title: "Simple RSA",
       id: 2,
       description:
-        "The project is a secure messaging system that employs RSA, a public-key cryptography protocol, to safeguard the messages exchanged between a client and a server. \
-      A unique aspect of this system is the highly efficient generation of 2048-bit prime numbers, a critical component of the RSA algorithm, achieved in a timeframe of approximately 100 milliseconds. \
-      This optimization significantly accelerates the key generation process without compromising the robustness of the encryption, providing a secure yet highly responsive communication environment. \
-      The performance enhancement demonstrates a deep understanding of the RSA protocol, prime number theory, and algorithmic optimization, and showcases the application of these principles in real-world network programming.",
+        "The project is an optimized RSA implementation, focusing on rapid 2048-bit prime number generation for efficient key creation. This advancement enhances performance without sacrificing encryption strength, showcasing deep knowledge of RSA protocols and prime number theory.",
     },
     {
       title: "MQTT CMD Internal Testing and Validation",
@@ -66,8 +63,7 @@
       description:
         "An interactive recreation of the popular 2048 game. \
       This project is supplemented with an artificial intelligence (AI) agent based on Q-learning, a type of reinforcement learning algorithm. \
-      The AI agent autonomously plays the game, making decisions by estimating the future rewards of its actions. \
-      This project demonstrates proficiency in game development and machine learning.",
+      The AI agent autonomously plays the game, making decisions by estimating the future rewards of its actions.",
     },
   ];
 

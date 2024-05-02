@@ -12,7 +12,6 @@
         try {
             const response = await fetch("/generate_keys");
             const data = await response.json();
-            loadingTime = 100;
             prime1 = data.prime1;
             prime2 = data.prime2;
             oddNumsTried = data.oddNumbersTried;
@@ -31,8 +30,8 @@
     <p>
         In an era where digital interactions are ubiquitous, the necessity for
         secure communication mechanisms stands paramount. In addressing this
-        need, I architected a robust messaging system, leveraging the RSA
-        encryption protocol to solidify client-server interactions via
+        need, I architected a robust encryption system, leveraging the RSA
+        encryption protocol to solidify interactions via
         public-key cryptography.
     </p>
     <p>
@@ -85,7 +84,7 @@
         It's a testament to the potential of combining mathematical rigor,
         algorithmic precision, and software engineering prowess.
     </p>
-    <p>Prime numbers generated in {loadingTime}ms:</p>
+    <p>When running on my local machine, a pair of primes can be generated in ~100ms:</p>
     <ul>
         <li>Prime 1: {prime1}</li>
         <li>Prime 2: {prime2}</li>

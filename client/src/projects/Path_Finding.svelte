@@ -81,7 +81,7 @@
 <body>
   <h1>Interactive Pathfinding Visualizer</h1>
   <p>
-    Dive deep into the world of pathfinding algorithms with our interactive
+    Dive deep into the world of pathfinding algorithms with my interactive
     visualizer! Algorithms are fundamental to the essence of computing, and
     pathfinding is a crucial component in many applications, ranging from video
     games to GPS systems. My tool allows you to:
@@ -106,11 +106,6 @@
       learn the 'why' behind it.
     </li>
   </ul>
-  <p>
-    Ideal for both beginners who are just stepping into the world of algorithms
-    and seasoned pros looking to brush up their knowledge. Get started and enjoy
-    the journey of discovery!
-  </p>
 </body>
 <div class="controls">
   <select bind:value={selectedAlgorithm}>
@@ -147,14 +142,14 @@
     grid-template-columns: repeat(var(--grid-size), 1fr);
     grid-auto-rows: calc(
       100% / var(--grid-size)
-    ); /* Ensure each row's height is the same as each column's width */
+    );
     gap: 0;
   }
   .cell {
-    height: 50px; /* Let the grid determine the cell's height */
+    height: 50px;
     background-color: white;
     border: 1px solid #ddd;
-    box-sizing: border-box; /* Ensures the border is included in the cell's total size */
+    box-sizing: border-box; 
   }
   .cell.Barrier {
     background-color: black;
@@ -178,7 +173,7 @@
     width: 90%;
     margin: 40px;
     line-height: 1.6;
-    box-sizing: border-box; /* Ensures padding is included in the body's total width */
+    box-sizing: border-box;
   }
 
   h1 {

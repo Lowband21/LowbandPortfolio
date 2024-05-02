@@ -132,42 +132,12 @@
 
   <p><strong>Introduction:</strong></p>
   <p>
-    Presenting the classic 2048 game, artistically crafted using Svelte for the
-    front-end and powered by Rust Actix for the backend logic. This
-    implementation showcases the seamless integration of frontend interactivity
-    with robust backend game logic. As you play, observe the responsive and
-    fluid UI, thanks to Svelte's reactive capabilities, complemented by the
-    efficiency and speed of Rust Actix.
+    This is a game I have a lot of hours in and I was so excited to take on my own implementation.
+    This version is crafted using Svelte for the
+    front-end and powered by Rust Actix for the backend logic. However, it's based on a cli version
+    that I built during a quarter where I was taking an introductory class on AI. The original version had a cli interface
+    and primarly existed as a way to train and test my Q-Learning agent. This version is stripped of that functionality, but has been given a simple GUI.
   </p>
-
-  <h3>Key Features:</h3>
-  <ul>
-    <li>
-      <strong>Responsive UI</strong>: Designed with a modern and user-friendly
-      interface, the game scales seamlessly across different devices, ensuring a
-      smooth gaming experience.
-    </li>
-    <li>
-      <strong>Touch & Mouse Interactivity</strong>: Whether you're swiping on
-      your touch device or dragging with a mouse, the game intuitively responds
-      to your gestures. The directional buttons provide an alternative input
-      method.
-    </li>
-    <li>
-      <strong>Dynamic Color Grading</strong>: Each tile is colored distinctively
-      based on its value, providing an aesthetically pleasing visual cue as you
-      progress in the game.
-    </li>
-    <li>
-      <strong>Real-time Score Display</strong>: Keep track of your score, which
-      is displayed prominently below the game board.
-    </li>
-    <li>
-      <strong>Server-side Game Logic</strong>: Offloading the game logic to the
-      Rust Actix backend ensures optimized performance, allowing the Svelte
-      front-end to remain lightweight and focused on presentation.
-    </li>
-  </ul>
 
   <h3>How to Play:</h3>
   <p>
