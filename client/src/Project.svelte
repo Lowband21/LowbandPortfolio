@@ -7,6 +7,7 @@
   import Game from "./projects/2048_Game.svelte";
   import Path_Finding from "./projects/Path_Finding.svelte";
   import Fractal from "./projects/Fractal.svelte";
+  import Audio from "./projects/Audio.svelte";
 
   export let id; // this is the project id, which we receive as a prop
 
@@ -14,6 +15,9 @@
 
   onMount(() => {
     switch (id) {
+      case "Audio Visualizer":
+        ProjectComponent = Audio;
+        break;
       case "Fractal":
         ProjectComponent = Fractal;
         break;

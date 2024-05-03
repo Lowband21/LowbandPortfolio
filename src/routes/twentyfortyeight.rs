@@ -31,7 +31,6 @@ pub async fn make_move(data: web::Json<MoveInfo>, session: Session) -> Result<Ht
 
     let result = game.action(&data.action);
     session.insert("game_state", game.clone())?;
-    println!("In Here");
     match result {
         GameState::Ok | GameState::Gameover => Ok(HttpResponse::Ok().json(Update {
             board: game.board,
@@ -61,7 +60,7 @@ pub async fn undo(session: Session) -> Result<HttpResponse, Error> {
 }
 
 pub async fn reset(session: Session) -> Result<HttpResponse, Error> {
-    let game = Game::new(); // This will reset the game.
+    let game = Game::new();
     session.insert("game_state", game.clone())?;
     Ok(HttpResponse::Ok().json(Update {
         board: game.board,

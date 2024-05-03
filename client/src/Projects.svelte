@@ -6,6 +6,16 @@
 
   let projects = [
     {
+      title: "Audio Visualizer",
+      id: 8,
+      description:
+        "Experience your music like never before with Bevy Audioviz! \
+      Crafted with Rust and powered by the Bevy game engine and CPAL library, \
+      this real-time audio visualizer captures and processes audio data to display stunning visualizations. \
+      Choose from bar, string, or circle visualizers, and tweak your visual experience with an easy-to-use GUI that allows for adjustments in color, \
+      frequency range, and more. Enjoy the ultra-low latency and detailed spectrum analysis for a truly immersive audiovisual journey.",
+    },
+    {
       title: "Fractal",
       id: 7,
       description:
