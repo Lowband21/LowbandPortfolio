@@ -15,7 +15,7 @@
 
   onMount(() => {
     switch (id) {
-      case "Audio Visualizer":
+      case "Audio_Visualizer":
         ProjectComponent = Audio;
         break;
       case "Fractal":
